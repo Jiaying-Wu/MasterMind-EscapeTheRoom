@@ -21,6 +21,31 @@ In front of you, there is a gate with a giant lock. The times you can enter
 the numbers into the lock is limited! Once you ran out of the times, the 
 gate will lock forever! Hurry up! Clock is ticking......"
 
+If you enter all correct elements with correct position into the lock in the
+limited times, the gate will open. That you can escape the room. Otherwise, 
+you will be lock in the room forever......
+ 
+ [S] to start the game.
+ 
+ [H] for help, display game rule.
+ 
+ [A] to view the achievements 
+```
+
+The above text is the main page of the game, it will stored in this text file **`masterMindMainPage.txt`**. It will load and display at the beginning of the game for player to read.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Three levels of this game:
+
+ [1] wood gate = easy, 4 elements out of 6 with 10 times to try.
+ 
+ [2] Rock gate = tricky: 5 elements out of 8 with 12 times to try.
+ 
+ [3] Iron gate = hard: 6 elements out of 10 with 14 times to try.
+
 After you enter the elements into the lock, the lock will provide you some clues.
 
 - One `#` will show up if you enter a correct element in correct position.
@@ -31,13 +56,31 @@ After you enter the elements into the lock, the lock will provide you some clues
 
 - The order of symbols to show up is random in each time.
 
-If you enter all correct elements with correct position into the lock in the
-limited times, the gate will open. That you can escape the room. Otherwise, 
-you will be lock in the room forever.
+The way to caculate the points for each game:
 
+1. The points for wood gate start from 100, rock gate start from 180 and
+   iron gate start from 280.
+
+3. Each time will cost you 10 points in wood gate, 15 points in rock gate,
+   20 points in iron gate.
+
+4. 2 points for one `#`, 1 point for one `*`.
+
+5. Maximum points for opening wood gate is 98, that is four `#` in 1 time.
+   Maximum 175 points for rock gate and maximum 272 points for iron gate.
+
+6. The points you get from each game will add up to your total points.
+```
+
+The above text is the game rule, it will stored in this text file **`masterMindHelp.txt`**. It will load and display when user press `[H]` for player to read.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Three steps to start the game:
 
-1. Enter your name and press Enter.
+1. Enter your name.
 
 2. Select the gate you want to open:
 
@@ -57,16 +100,20 @@ Three steps to start the game:
  
  [4] Word
  
-You will then face to the gate you have chosen.
+Then you will face to the gate you have chosen.
 ```
 
-The text above is the game rule of Master Mind :: Escape the Room. It seperate into two parts. 
 
-The first part is the first 3 lines start with "~"" and end with "~" as the title. It display by a function **`displayTitle()`**. 
+The text above is the game rule of Master Mind :: Escape the Room. 
 
-The second part is the body after the "~", store in a text file **`masterMindRules.txt`**.
+It separate into two parts:
 
-The text above also store as a help page, 
+1. The first 3 lines start with "~"" and end with "~" as the title. It display by a function **`displayTitle()`**. 
+
+2. The second part is the body after the "~", store in a text file **`masterMindRules.txt`**.
+
+The text above also store as a help page, it will display if player press `[H]` during the game.
+
 
 ## Development outline of Master Mind :: Escape the Room
 
@@ -109,7 +156,7 @@ Four step for game setup:
 
 * Ask the player what type of element they want to choose, store as a *int* **`elementType`**, possible value is {1, 2, 3, 4}
 
-4. After player finish enter their name and game option, include a "Press any key to continue" in the end. To allow user final review the information before the screen be cleard.
+4. After player finish enter their name and game option, include a "Press any key to continue" in the end. To allow user final review the information before the screen be cleared.
 
 What we need for game setup:
 
@@ -119,7 +166,7 @@ Functions:
 
 2. **`displayRule()`** to display **`masterMindRules.txt`**.
 
-3. *int* **`askForNumber(string question)`** to display the question and ask uesr's choice, *string* **question** is the local variable within the function **`askForNumber()`**.
+3. *int* **`askForNumber(string question)`** to display the question and ask user's choice, *string* **question** is the local variable within the function **`askForNumber()`**.
 
 Variables:
 
