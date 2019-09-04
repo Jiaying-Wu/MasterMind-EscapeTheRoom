@@ -12,10 +12,17 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## How to play Master Mind :: Escape the Room
 
+The four text paragraph display below will separate into two parts:
+
+1. Title start with "~" and end with "~", display when calling the function **`displayTitle()`**.
+
+2. The rest is the body, it will store in different text file.
+
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "You have been locked in an empty dark room, running out of food and water. 
 In front of you, there is a gate with a giant lock. The times you can enter 
 the numbers into the lock is limited! Once you ran out of the times, the 
@@ -25,11 +32,16 @@ If you enter all correct elements with correct position into the lock in the
 limited times, the gate will open. That you can escape the room. Otherwise, 
 you will be lock in the room forever......
  
- [S] to start the game.
+ [S] to start a new game.
  
- [H] for help, display game rule.
+ [C] to continue the saved game.
  
- [A] to view the achievements 
+ [H] for help, to display the game rule.
+ 
+ [A] to view the achievements.
+ 
+ [E] to end the game.
+ 
 ```
 
 The above text is the main page of the game, it will stored in this text file **`masterMindMainPage.txt`**. It will load and display at the beginning of the game for player to read.
@@ -38,6 +50,7 @@ The above text is the main page of the game, it will stored in this text file **
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Three levels of this game:
 
  [1] wood gate = easy, 4 elements out of 6 with 10 times to try.
@@ -70,14 +83,16 @@ The way to caculate the points for each game:
    Maximum 175 points for rock gate and maximum 272 points for iron gate.
 
 6. The points you get from each game will add up to your total points.
+
 ```
 
-The above text is the game rule, it will stored in this text file **`masterMindHelp.txt`**. It will load and display when user press `[H]` for player to read.
+The above text is the game rule, it will stored in this text file **`masterMindHelp.txt`**. It will load and display when user press `[H]` for help.
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Three steps to start the game:
 
 1. Enter your name.
@@ -103,16 +118,22 @@ Three steps to start the game:
 Then you will face to the gate you have chosen.
 ```
 
+The above text is the setup for the game, it will stored in this text file **`masterMindStart.txt`**. It will load and display when user press `[S]` to start a new game.
 
-The text above is the game rule of Master Mind :: Escape the Room. 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------------------
+Player name:
+Total points:
+Highest points for wood gate is: 0 / 98
+Highest points for rock gate is: 0 / 175
+Highest points for iron gate is: 0 / 272
+---------------------------------------------------------------------------------
+```
 
-It separate into two parts:
-
-1. The first 3 lines start with "~"" and end with "~" as the title. It display by a function **`displayTitle()`**. 
-
-2. The second part is the body after the "~", store in a text file **`masterMindRules.txt`**.
-
-The text above also store as a help page, it will display if player press `[H]` during the game.
+This is the initial version of player's achievement. It will stored all players' achievement, identify by player name. It will store in this text file **`masterMindAchievement.txt`**, it will load and display when player press `[A]`
 
 
 ## Development outline of Master Mind :: Escape the Room
@@ -123,18 +144,112 @@ After reading the assignment brief, I decided to use 3 classes for this game.
 
 1. **Player class**
 
-**Player class** is
+Player class is
 
 2. **Board class**
 
-**Board class** is 
+Board class is 
 
 3. **Application file**
 
-**Application file** include
+Application file include
+
+What we need to create
 
 
-## The game setup
+## Six sections of game setup
+
+### Section 1: Initial variables and functions
+
+Variables:
+
+1. *string* **`previousOption`** to stored player's previous option.
+
+2. *string* **`currentOption`** to stored player's current option.
+
+Functions:
+
+1. *string* **`askForString(`** *string* **`question)`** to ask user enter the option, return a *string* value. *string* **`question`** is a local variable in function **`askForString()`**.
+
+2. *int* **`askForInt(`** *string* **`question)`** to ask user enter the option, return a *int* value. *string* **`question`** is a local variable in function **`askForInt()`**.
+
+
+### Section 2: Title
+
+1. Create the function *void* **`displayTitle()`** to display the title of the game.
+
+What we need:
+
+Function:
+
+1. *void* **`displayTitle()`** to display the title.
+
+
+### Section 3: Main page
+
+The main page display everytime we start the game, or press `[M]` during the game.
+
+1. Call the function **`displayTitle()`** to display the title.
+
+2. Load and display the text file **`masterMindMainPage.txt`** into the screen.
+
+3. Replace **`previousOption`** = "m".
+
+4. Call the function **`askForString(`** *string* **`question)`** to ask player enter their option, store the return value as **`currentOption`**.
+
+5. Check the **`currentOption`**, if not in {"s", "c", "h", "a", "e"}, return error message. Call function **`askForString(`** *string* **`question)`** until player enter the correct option.
+
+Since the screen will pause until the player enter the option, it provide time for player to read the information.
+
+What we need:
+
+Variables:
+
+1. *string* **`previousOption`** 
+
+2. *string* **`currentOption`**
+
+Functions:
+
+1. *void* **`displayMainPage()`** to read **`masterMindMainPage.txt`** then display main page.
+
+2. *string* **`askForString(`** *string* **`question)`** to ask a string from player.
+
+
+### Help page
+
+The help page display when player press `[P]`.
+
+1. Clear the screen.
+
+2. Call the function **`displayTitle()`** to display the title.
+
+3. Load and display the text file **`masterMindHelp.txt`** into the screen.
+
+4. Include a "Press any key to continue", pause the screen to allow player to read the information.
+
+5. Create a *string* **`previousOption`** to store the player's previous option. Replace **`previousOption`** 
+
+What we need:
+
+Variables:
+
+1. *string* **`currentOption`**
+
+2. *string* **`previousOption`**
+
+Functions:
+
+
+
+
+### Achievement page
+
+
+### Start game page
+
+
+### Continute game page
 
 Four step for game setup:
 
@@ -152,13 +267,13 @@ Four step for game setup:
 
 * Create a *int* **`codeElement`** = 4 + **`difficultyLevel`** to indicate the number of elements in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
 
-* Create a *intr* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
+* Create a *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
 
 * Ask the player what type of element they want to choose, store as a *int* **`elementType`**, possible value is {1, 2, 3, 4}
 
 4. After player finish enter their name and game option, include a "Press any key to continue" in the end. To allow user final review the information before the screen be cleared.
 
-What we need for game setup:
+What we need:
 
 Functions:
 
