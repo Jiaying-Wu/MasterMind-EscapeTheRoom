@@ -157,9 +157,9 @@ Application file include
 What we need to create
 
 
-## Six sections of game setup
+## Five sections for game setup
 
-### Section 1: Initial variables and functions
+### Section 1: Variables and functions for setup
 
 Variables:
 
@@ -167,37 +167,35 @@ Variables:
 
 2. *string* **`currentOption`** to stored player's current option.
 
+
 Functions:
 
-1. *string* **`askForString(`** *string* **`question)`** to ask user enter the option, return a *string* value. *string* **`question`** is a local variable in function **`askForString()`**.
+1. *void* **`displayTitle()`** to display the title of the game.
 
-2. *int* **`askForInt(`** *string* **`question)`** to ask user enter the option, return a *int* value. *string* **`question`** is a local variable in function **`askForInt()`**.
+2. *void* **`readTextFile(`** *string* **`fileName)`** to read the given text file and display into screen.
 
+3. *string* **`askForString(`** *string* **`question)`** to ask user enter the option, return a *string* value. *string* **`question`** is a local variable in function **`askForString()`**.
 
-### Section 2: Title
-
-1. Create the function *void* **`displayTitle()`** to display the title of the game.
-
-What we need:
-
-Function:
-
-1. *void* **`displayTitle()`** to display the title.
+4. *int* **`askForInt(`** *string* **`question)`** to ask user enter the option, return a *int* value. *string* **`question`** is a local variable in function **`askForInt()`**.
 
 
-### Section 3: Main page
+### Section 2: Main page
 
 The main page display everytime we start the game, or press `[M]` during the game.
 
-1. Call the function **`displayTitle()`** to display the title.
+1. Clear the screen.
 
-2. Load and display the text file **`masterMindMainPage.txt`** into the screen.
+2. Call the function **`displayTitle()`** to display the title.
 
-3. Replace **`previousOption`** = "m".
+3. Load and display the text file **`masterMindMainPage.txt`** using function**`readTextFile()`**.
 
-4. Call the function **`askForString(`** *string* **`question)`** to ask player enter their option, store the return value as **`currentOption`**.
+4. Replace **`previousOption`** = "m".
 
-5. Check the **`currentOption`**, if not in {"s", "c", "h", "a", "e"}, return error message. Call function **`askForString(`** *string* **`question)`** until player enter the correct option.
+5. Call the function **`askForString()`** to ask player enter their option, and check the input. If not in {"s", "c", "h", "a", "e"}, return error message. Call the function again until player enter the correct option. 
+
+6. Store the string return from function **`askForString()`** as **`currentOption`**.
+
+7. Then go the page **`currentOption`** match. Eg, "h" for help page.
 
 Since the screen will pause until the player enter the option, it provide time for player to read the information.
 
@@ -211,24 +209,30 @@ Variables:
 
 Functions:
 
-1. *void* **`displayMainPage()`** to read **`masterMindMainPage.txt`** then display main page.
+1. *void* **`displayTitle()`** to display the title.
 
-2. *string* **`askForString(`** *string* **`question)`** to ask a string from player.
+2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindMainPage.txt`** then display main page.
+
+3. *string* **`askForString(`** *string* **`question)`** to ask a string from player.
 
 
-### Help page
+### Section 3: Help page
 
-The help page display when player press `[P]`.
+The help page display when player press `[H]`.
 
 1. Clear the screen.
 
 2. Call the function **`displayTitle()`** to display the title.
 
-3. Load and display the text file **`masterMindHelp.txt`** into the screen.
+3. Load and display the text file **`masterMindHelp.txt`** using function **`readTextFile()`**.
 
-4. Include a "Press any key to continue", pause the screen to allow player to read the information.
+4. Replace the **`previousOption`**  = **`currentOption`**.
 
-5. Create a *string* **`previousOption`** to store the player's previous option. Replace **`previousOption`** 
+5. Replace **`currentOption`** = "h".
+
+6. Include a "Press any key to continue", pause the screen to allow player to read the information.
+
+7. Then go back to the page **`previousOption`** match. Eg, "m" for main page...
 
 What we need:
 
@@ -240,24 +244,51 @@ Variables:
 
 Functions:
 
+1. *void* **`displayTitle()`** to display the title.
+
+2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindHelp.txt`** then display Help page.
 
 
+### Section 4: Achievement page
 
-### Achievement page
+The achievement page display when player press `[A]`.
+
+1. Clear the screen.
+
+2. Call the function **`displayTitle()`** to display the title.
+
+3. Load and display the text file **`masterMindAchievement.txt`** using function **`readTextFile()`**.
+
+4. Replace the **`previousOption`**  = **`currentOption`**.
+
+5. Replace **`currentOption`** = "a".
+
+6. Include a "Press any key to continue", pause the screen to allow player to read the information.
+
+7. Then go back to the page **`previousOption`** match. Eg, "m" for main page...
+
+What we need:
+
+Variables:
+
+1. *string* **`currentOption`**
+
+2. *string* **`previousOption`**
+
+Functions:
+
+1. *void* **`displayTitle()`** to display the title.
+
+2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindAchievement.txt`** then display achievement page.
 
 
-### Start game page
-
-
-### Continute game page
+### Section 5: Start game page
 
 Four step for game setup:
 
-1. Display the title of the game.
+1. Clear the screen.
 
-2. Load and display the **`masterMindRules.txt`** and include a "Press any key to continue" to pause the screen, allow player to read the game rules.
-
-3. After player finishes reading the game rule, that is press a key to continue. Initials the game variables:
+2. Call the function **`displayTitle()`** to display the title.
 
 * Ask the name of player, store as a *string* **`playerNmae`**.
   
