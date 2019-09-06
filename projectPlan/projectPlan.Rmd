@@ -175,11 +175,11 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
 
-2. *void* **`readTextFile(`** *string* **`fileName)`** to read the given text file and display into screen.
+2. *void* **`readTextFile`**(*string* **`fileName`**) to read the given text file and display into screen.
 
-3. *string* **`askForString(`** *string* **`question)`** to ask user enter the option, return a *string* value. *string* **`question`** is a local variable in function **`askForString()`**.
+3. *string* **`askForString`**(*string* **`question`**) to ask user enter the option, return a *string* value. *string* **`question`** is a local variable in function **`askForString()`**.
 
-4. *int* **`askForInt(`** *string* **`question)`** to ask user enter the option, return a *int* value. *string* **`question`** is a local variable in function **`askForInt()`**.
+4. *int* **`askForInt`**(*string* **`question`**) to ask user enter the option, return a *int* value. *string* **`question`** is a local variable in function **`askForInt()`**.
 
 
 ### Section 2: Main page
@@ -214,9 +214,9 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title.
 
-2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindMainPage.txt`** then display main page.
+2. *void* **`readTextFile`**(*string* **`fileName`**) to read **`masterMindMainPage.txt`** then display main page.
 
-3. *string* **`askForString(`** *string* **`question)`** to ask a string from player.
+3. *string* **`askForString`**(*string* **`question`**) to ask a string from player.
 
 
 ### Section 3: Help page
@@ -249,7 +249,7 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title.
 
-2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindHelp.txt`** then display Help page.
+2. *void* **`readTextFile`**(*string* **`fileName`**) to read **`masterMindHelp.txt`** then display Help page.
 
 
 ### Section 4: Achievement page
@@ -282,7 +282,7 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title.
 
-2. *void* **`readTextFile(`** *string* **`fileName)`** to read **`masterMindAchievement.txt`** then display achievement page.
+2. *void* **`readTextFile`**(*string* **`fileName`**) to read **`masterMindAchievement.txt`** then display achievement page.
 
 
 ### Section 5: Start game page
@@ -325,9 +325,9 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
 
-2. *string* **`askForString(`** *string* **`question)`** to ask player's name, *string* **question** is the local variable.
+2. *string* **`askForString`**(*string* **`question`**) to ask player's name, *string* **question** is the local variable.
 
-3. *int* **`askForNumber(`** *string* **`question)`** to display the question and ask user's choice, *string* **question** is the local variable.
+3. *int* **`askForNumber`**( *string* **`question`**) to display the question and ask user's choice, *string* **question** is the local variable.
 
 
 ### Section 6: Game page
@@ -361,7 +361,11 @@ After player press [S] and enter their name, select game difficulty level and el
 
 * Create and initialize an *int* **`gameRound`** = 0. That indicate the current game round.
 
-4. Create a function to 
+4. Create a function to *string* **`gameTableTitle`**(*int* **`codeElement`**, *int* **`elementType`**) to generate the table title above. **`elementType`** to determine how many empty space inside the cell. 
+
+5. Store the return *string* as **`gameTable`** and display **`gameTable`**.
+
+5. Generate the a string vector **`secretCode`** using function **`generateCode()`**.
 
 What we need:
 
@@ -379,15 +383,17 @@ Variables:
 
 6. *int* **`gameRound`**
 
+7. *string* **`gameTable`**
+
+8. *vector<string>* **`secretCode`**
+
 Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
 
-2. 
+2. *string* **`gameTableTitle`**(*int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
 
-3.. *string* **`gameTable`**(*int* **`gameRound`**, *int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
-
-
+3. *vector<string>* **`generateCode`**(*int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
 
 
 ## The player's turn
