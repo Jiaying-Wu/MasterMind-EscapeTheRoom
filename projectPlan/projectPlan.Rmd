@@ -157,7 +157,7 @@ Application file include
 What we need to create
 
 
-## Five sections for game setup
+## Six sections for game setup
 
 ### Section 1: Variables and functions for setup
 
@@ -167,6 +167,9 @@ Variables:
 
 2. *string* **`currentOption`** to stored player's current option.
 
+3. *string* **`playerName`** to store player's name.
+
+4. *int* **`difficultyLevel`** to store the chosen difficulty level of the game.
 
 Functions:
 
@@ -284,52 +287,117 @@ Functions:
 
 ### Section 5: Start game page
 
-Four step for game setup:
+Before the game start, player need to finish some setup.
+
+1. Clear the screen.
+
+2. Replace the **`previousOption`**  = **`currentOption`**.
+
+3. Replace **`currentOption`** = "s".
+
+4. Call the function **`displayTitle()`** to display the title.
+
+5. Call the function **`askForString()`** to ask player's name, store the return *string* as **`playerName`**.
+  
+6. Call the function **`askForNumber()`** to ask player to select the gate to open, that is the game difficulty level.
+
+7. check the input, if it within {1, 2, 3}. Store the return *int* as **`difficultyLevel`**. Otherwise return error message, then call the function **`askForNumber()`** until player enter the correct integer.
+
+8. Call the function **`askForNumber()`** to ask player select the type of element.
+
+9. check the input, if it within {1, 2, 3, 4}. Store the return *int* as **`elementType`**. Otherwise return error message, then call the function **`askForNumber()`** until player enter the correct integer.
+
+10. After player finish enter their name and game option, include a "Press any key to continue" in the end.
+
+What we need:
+
+Variables:
+
+1. *string* **`currentOption`**
+
+2. *string* **`previousOption`**
+
+3. *string* **`playerName`**
+
+4. *int* **`difficultyLevel`**
+
+Functions:
+
+1. *void* **`displayTitle()`** to display the title of the game.
+
+2. *string* **`askForString(`** *string* **`question)`** to ask player's name, *string* **question** is the local variable.
+
+3. *int* **`askForNumber(`** *string* **`question)`** to display the question and ask user's choice, *string* **question** is the local variable.
+
+
+### Section 6: Game page
+
+After player press [S] and enter their name, select game difficulty level and element type, press a key to continue at last. Then shift to the page display below.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+```
 
 1. Clear the screen.
 
 2. Call the function **`displayTitle()`** to display the title.
 
-* Ask the name of player, store as a *string* **`playerNmae`**.
-  
-* Ask the player to select the gate to open, that is the game difficulty level. Store as a *int* **`difficultyLevel`**, possible value is {1, 2, 3}.
+3. Create the following local variables:
 
-* Create a *int* **`possibleElement`** = 3 + 2* **`difficultyLevel`** to indicate the number of all possible elements, possible value is {6, 8, 10}.
+* An *int* **`possibleElement`** = 3 + 2* **`difficultyLevel`** to indicate the number of all possible elements, possible value is {6, 8, 10}.
 
-* Create a *int* **`codeElement`** = 4 + **`difficultyLevel`** to indicate the number of elements in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
+* Ana *int* **`codeElement`** = 3 + **`difficultyLevel`** to indicate the number of elements in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
 
-* Create a *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
+* An *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
 
-* Ask the player what type of element they want to choose, store as a *int* **`elementType`**, possible value is {1, 2, 3, 4}
+* Create and initialize an *int* **`gameRound`** = 0. That indicate the current game round.
 
-4. After player finish enter their name and game option, include a "Press any key to continue" in the end. To allow user final review the information before the screen be cleared.
+4. Create a function to 
 
 What we need:
 
-Functions:
-
-1. **`displayTitle()`** to display the title of the game.
-
-2. **`displayRule()`** to display **`masterMindRules.txt`**.
-
-3. *int* **`askForNumber(string question)`** to display the question and ask user's choice, *string* **question** is the local variable within the function **`askForNumber()`**.
-
 Variables:
 
-1. *string* **`playerNmae`**
+1. *int* **`difficultyLevel`**
 
-2. *int* **`difficultyLevel`**
+2. *int* **`possibleElement`**
 
-3. *int* **`possibleElement`**
+3. *int* **`codeElement`**
 
-4. *int* **`codeElement`**
+4. *int* **`codeRow`**
 
-5. *int* **`codeRow`**
+5. *int* **`elementType`**
 
-6. *int* **`elementType`**
+6. *int* **`gameRound`**
+
+Functions:
+
+1. *void* **`displayTitle()`** to display the title of the game.
+
+2. 
+
+3.. *string* **`gameTable`**(*int* **`gameRound`**, *int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
+
+
 
 
 ## The player's turn
+
+
+
+
+
+
+
 
 1. After the press a key to continue, clear the screen.
 
