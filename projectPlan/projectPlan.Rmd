@@ -1,8 +1,9 @@
 ---
 title: 'Project Plan for Master Mind :: Escape the Room'
 author: "Jiaying Wu"
-output: pdf_document
-fontsize: 11pt
+output:
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -132,6 +133,9 @@ The above text is the setup for the game, it will stored in this text file **`ma
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------------------------------------------------------
 Player name:
+Rank:
+Gate attempted:
+Gate opened:
 Total points:
 Highest points in Wood Gate: 0 / 98
 Highest points in Rock Gate: 0 / 175
@@ -192,7 +196,7 @@ Functions:
 
 ### Section 2: Main page
 
-The main page display everytime we start the game, or press [`M`] during the game.
+The main page display every time we start the game, or press [`M`] during the game.
 
 1. Clear the screen.
 
@@ -297,6 +301,22 @@ Functions:
 
 Before the game start, player need to finish some setup.
 
+```
+ Enter your name: Jiaying
+ 
+ Gate level: [1] Wood Gate = easy  [2] Rock Gate = tricky  [3] Iron Gate = hard
+ 
+ Select a level of the gate: 1
+ 
+ Lock type: [1] Number  [2] Letter  [3] Symbol  [4] Word
+ 
+ Select a type of the lock: 1
+
+                        Press any key to continue...
+```
+
+How to do that?
+
 1. Clear the screen.
 
 2. Replace the **`previousOption`**  = **`currentOption`**.
@@ -347,7 +367,7 @@ After player press [`N`] and enter their name, select game difficulty level and 
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] help    [S]Save uncompleted game    [E] end game
 
@@ -357,9 +377,9 @@ Welcome, `playName`
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
  
- The code elements: 0 1 2 3 4 5
- 
 ```
+
+How to do that?
 
 1. Clear the screen.
 
@@ -367,19 +387,18 @@ Welcome, `playName`
 
 3. Create the following local variables:
 
-* An *int* **`possibleElement`** = 3 + 2* **`difficultyLevel`** to indicate the number of all possible elements, possible value is {6, 8, 10}.
-
-* Ana *int* **`codeElement`** = 3 + **`difficultyLevel`** to indicate the number of elements in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
+* An *int* **`codeColumn`** = 3 + **`difficultyLevel`** to indicate the number of columns in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
 
 * An *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
 
 * Create and initialize an *int* **`gameRound`** = 0. That indicate the current game round.
 
-4. Create a function to *string* **`gameTableTitle`**(*int* **`codeElement`**, *int* **`elementType`**) to generate the table title above. **`elementType`** to determine how many empty space inside the cell. 
+4. Generate the a string vector **`secretCode`** using function **`generateSecretCode()`**.
 
-5. Store the return *string* as **`gameTable`** and display **`gameTable`**.
+5. Create a function to *string* **`gameTableTitle`**() to generate the row of welcome, options and hidden code. *string* **`playerName`** determine player name, *int* **`codeColumn`** determine how many cell and **`elementType`** to determine how many empty space inside the cell. 
 
-6. Generate the a string vector **`secretCode`** using function **`generateCode()`**.
+6. Store the return *string* as **`gameTable`** and then display **`gameTable`**.
+
 
 What we need:
 
@@ -389,7 +408,7 @@ Variables:
 
 2. *int* **`possibleElement`**
 
-3. *int* **`codeElement`**
+3. *int* **`codeColumn`**
 
 4. *int* **`codeRow`**
 
@@ -405,9 +424,10 @@ Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
 
-2. *string* **`gameTableTitle`**(*int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
+2. *vector<string>* **`generateSecretCode`**(*int* **`codeColumn`**, *int* **`elementType`**)
 
-3. *vector<string>* **`generateCode`**(*int* **`codeElement`**, *int* **`codeRow`**, *int* **`elementType`**)
+3. *string* **`gameTableTitle`**(*string* **`playerName`**, *int* **`codeColumn`**, *int* **`elementType`**)
+
 
 
 ## The player's turn
@@ -417,7 +437,7 @@ Functions:
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -432,8 +452,9 @@ Welcome, `playName`
  Enter code or the game option: 1111
  
 ```
+After player press a key to continue,
 
-1. After the press a key to continue, clear the screen.
+1. clear the screen.
 
 2. display the title of the game.
 
@@ -450,7 +471,7 @@ Welcome, `playName`
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -463,6 +484,10 @@ Welcome, `playName`
  | | 1 | | 1 | | 1 | | 1 |  #            |
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |               |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
  
  The code elements: 0 1 2 3 4 5
  
@@ -470,7 +495,7 @@ Welcome, `playName`
 
 ```
 
-For example, player enter the code "1111", the secret code is "4321". That is one number is correct match. Hence, return a "`#`" on the back.
+For example, player enter the code "1111", the secret code is "4321". That is one number correctly matched. Hence, return a "`#`" on the back.
 
 
 
@@ -486,7 +511,7 @@ For example, player enter the code "1111", the secret code is "4321". That is on
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -504,15 +529,18 @@ Welcome, `playName`
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
  
- Congratulations, `playName` you have opened the Wood Gate!
- 
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       Name: `playName`
-       Gate: Wood Gate
-       Points: 90 / 98
-       Highest points in Wood Gate: 90 / 98
-       Total points: 90
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Congratulations, Jiaying. Now you have opened the gate and escape the room!
+
+---------------------------------------------------------------------------------
+Player name: Jiaying
+Rank: Beginner
+Gate attempted: 1
+Gate opened: 1
+Total points: 90
+Highest points in Wood Gate: 90 / 98
+Highest points in Rock Gate: 0 / 175
+Highest points in Iron Gate: 0 / 272
+---------------------------------------------------------------------------------
 
  Enter the game option: 
  
@@ -523,14 +551,14 @@ Welcome, `playName`
 
 Player can enter [`E`] to end the game at anytime.
 
-1. **In the middle of the game**
+**1. In the middle of the game**
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -552,18 +580,18 @@ Welcome, `playName`
  
  You have saved this game.
  
- Thank you for playing this game. Goodbye, `playName`!
+ Thank you for playing this game. Goodbye, Jiaying!
 
 ```
 
-2. **After player finish the game**
+**2. After player finish the game**
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -581,19 +609,22 @@ Welcome, `playName`
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
  
- Congratulations, `playName` you have opened the Wood Gate!
+ Congratulations, Jiaying. Now you have opened the gate and escape the room!
  
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       Name: `playName`
-       Gate: Wood Gate
-       Points: 90 / 98
-       Highest points in Wood Gate: 90 / 98
-       Total points: 90
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------------------
+Player name: Jiaying
+Rank: Beginner
+Gate attempted: 1
+Gate opened: 1
+Total points: 90
+Highest points in Wood Gate: 90 / 98
+Highest points in Rock Gate: 0 / 175
+Highest points in Iron Gate: 0 / 272
+---------------------------------------------------------------------------------
 
  Enter the game option: e
  
- Thank you for playing this game. Goodbye, `playName`!
+ Thank you for playing this game. Goodbye, Jiaying!
  
 ```
 
@@ -601,14 +632,40 @@ Welcome, `playName`
 
 ## Additional features included
 
-1. Player can continue the saved uncompleted game, that is when they press [`C`] in the Main page. Then, player will the saved game.
+**1. This game have a theme, that is the player need to figure out the code of the lock to escape the room.**
+
+**2. Player can restored the uncompleted game, that is when player press [`M`], [`N`] and [`E`] if they didn't finish the game.**
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
+
+ [H] Help    [M] Main page    [N] New game    [E] End game
+
+```
+
+Then, player will be ask the question below, player decide whether to save the game base on their choice.
+
+```
+ You haven't finish the game, do you want to saved it for next time? (y/n): y
+ 
+ You have saved this game.
+ 
+ Thank you for playing this game. Goodbye, Jiaying!
+
+```
+
+**3. Player can continue the saved uncompleted game, that is when they press [`C`] in the Main page. Then, player will the saved game.**
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -624,11 +681,11 @@ Welcome, `playName`
  
  The code elements: 0 1 2 3 4 5
  
- Enter the code or game option:
+ Enter the code or game option: 
 
 ```
 
-2. Player can press [`H`] to ask for help, that is to display the game rule.
+**4. Player can press [`H`] to ask for help, that is to display the game rule.**
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -679,7 +736,7 @@ After player press a key, it will go back to the ongoing game.
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Welcome, `playName`
+Welcome, Jiaying
 
  [H] Help    [M] Main page    [N] New game    [E] End game
 
@@ -699,22 +756,51 @@ Welcome, `playName`
 
 ```
 
-3. Press [`A`] to view the achievements of all players, the inditifier is `playerName`. It record the total points of each user and the highest points each user have got in each gate.
+**5. Press [`A`] to view the achievements of all players, the identifier is `playerName`. It record the total points of each player and the highest points each player have got in each gate.**
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------------------------------------------------------
-Player name:
-Total points:
-Highest points in Wood Gate: 0 / 98
+Player name: Jiaying
+Rank: Beginner
+Gate attempted: 1
+Gate opened: 1
+Total points: 90
+Highest points in Wood Gate: 90 / 98
 Highest points in Rock Gate: 0 / 175
 Highest points in Iron Gate: 0 / 272
 ---------------------------------------------------------------------------------
 
                         Press any key to continue...
 ```
+
+**6. Player can select difficulty level, that is related to different gate. Including:**
+
+* Wood Gate = easy
+
+* Rock Gate = tricky
+
+* Iron Gate = hard
+
+**7. There is a score system to estimate points for each game. The rule how to calculate the points have also display in the Help page.**
+
+**8. Player can select different type of elementto use, including:**
+
+* Number
+
+* Symbol
+
+* letter
+
+* Word
+
+**9. Since it include the word type of the element, it also need to read word list form a file and store it.**
+
+**10. Display the board using ASCII art.**
+
+**11. Player promotion/demotion every 5 games won/lost.**
 
 
 ## UML class diagrams
