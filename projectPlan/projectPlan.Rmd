@@ -2,8 +2,8 @@
 title: 'Project Plan for Master Mind :: Escape the Room'
 author: "Jiaying Wu"
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -85,6 +85,14 @@ The way to caculate the points for each game:
    Maximum 175 points for rock gate and maximum 272 points for iron gate.
 
 6. The points you get from each game will add up to your total points.
+
+Ranking tier: 3 level of ranking, player promotion/demotion every 5 games won/lost.
+
+1. Beginner
+
+2. Expert
+
+3. Master
    
                       Press any key to continue...
    
@@ -152,21 +160,19 @@ This is the initial version of player's achievement. It will stored all players'
 
 ## Outline the functionality of all game classes
 
-After reading the assignment brief, I decided to use 3 classes for this game.
+After reading the assignment brief, I decided to use 3 classes for this game: a Player class, a Code class, and the Application file.
 
-1. **Player class**
+**1. Player class**
 
-Player class is
+Player class stores the information about the player: their name, the difficulty level and element type that player have chosen, and the game point of player. With difficulty level and element type, it can determine other variable of code.
 
-2. **Board class**
+**2. Code class**
 
-Board class is 
+Code class to generate the secret code, and create variable base on difficulty level and element type. To construct the array to record the code that player input.
 
-3. **Application file**
+**3. Application file**
 
-Application file include
-
-What we need to create
+Application file will be where all the functionality of the game is stored. Using best practice techniques will ensure that I have well-designed game that is easy for me to debug and test, and is easily read and understood by other programmers. How this structured is covered in the following breakdown of the program.
 
 
 ## Six sections for game setup
@@ -339,13 +345,13 @@ How to do that?
 
 5. Call the function **`askForString()`** to ask player's name, store the return *string* as **`playerName`**.
   
-6. Call the function **`askForNumber()`** to ask player to select the gate to open, that is the game difficulty level.
+6. Call the function **`askForInt()`** to ask player to select the gate to open, that is the game difficulty level.
 
-7. check the input, if it within {1, 2, 3}. Store the return *int* as **`difficultyLevel`**. Otherwise return error message, then call the function **`askForNumber()`** until player enter the correct integer.
+7. check the input, if it within {1, 2, 3}. Store the return *int* as **`difficultyLevel`**. Otherwise return error message, then call the function **`askForInt()`** until player enter the correct integer.
 
-8. Call the function **`askForNumber()`** to ask player select the type of element.
+8. Call the function **`askForInt()`** to ask player select the type of element.
 
-9. check the input, if it within {1, 2, 3, 4}. Store the return *int* as **`elementType`**. Otherwise return error message, then call the function **`askForNumber()`** until player enter the correct integer.
+9. check the input, if it within {1, 2, 3, 4}. Store the return *int* as **`elementType`**. Otherwise return error message, then call the function **`askForInt()`** until player enter the correct integer.
 
 10. After player finish enter their name and game option, include a "Press any key to continue" in the end.
 
@@ -369,7 +375,7 @@ Functions:
 
 2. *string* **`askForString`**(*string* **`question`**) to ask player's name, *string* **question** is the local variable.
 
-3. *int* **`askForNumber`**( *string* **`question`**) to display the question and ask user's choice, *string* **question** is the local variable.
+3. *int* **`askForInt`**( *string* **`question`**) to display the question and ask user's choice, *string* **question** is the local variable.
 
 
 ### Section 6: Game page
@@ -399,7 +405,7 @@ How to do that?
 
 2. Call the function **`displayTitle()`** to display the title.
 
-3. Create and initialize an *int* **`currentRound`** = 0. That indicate the current game round.
+3. Create and initialize an *int* **`gameRound`** = 0. That indicate the current game round.
 
 4. Create a *bool* **`isGameOver`** = false, to indicate whether the game is over or not.
 
@@ -436,7 +442,7 @@ Variables:
 
 7. *int* **`codeRow`**
 
-8. *string* **`allCode[codeRow][codeColumn]`**
+8. *string* **`inputCode[codeRow][codeColumn]`**
 
 9. *string* **`secretCode[codeColumn]`**
 
@@ -488,7 +494,7 @@ How to do that?
 
 5. Check the player input, if not match **`possibleElement`** or game option, return error message and call **`askForCode`** again until player enter correct input.
 
-6. Store the return *string* into the *string* array **`allCode[codeRow][codeColumn]`**. That is the first row of the array. 
+6. Store the return *string* into the *string* array **`inputCode[codeRow][codeColumn]`**. That is the first row of the array. 
 
 What we need:
 
@@ -502,7 +508,7 @@ Variables:
 
 4. *string* **`possibleElement`**
 
-5. *string* **`allCode[codeRow][codeColumn]`**.
+5. *string* **`inputCode[codeRow][codeColumn]`**.
 
 Functions:
 
@@ -550,7 +556,7 @@ How to da that?
 
 2. Call the function **`displayTitle()`** to display the title.
 
-3. Create a function  *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**) to check the each row of input code in **`allCode[codeRow][codeColumn]`** against the **`secretCode[codeColumn]`**. Provide the body part of the table, that is:
+3. Create a function  *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, *string* **`inputCode[codeRow][codeColumn]`**) to check the each row of input code in **`inputCode[codeRow][codeColumn]`** against the **`secretCode[codeColumn]`**. Provide the body part of the table, that is:
 
 ```
  | .---. .---. .---. .---.               |
@@ -582,7 +588,7 @@ Functions:
 
 1. *void* **`displayTitle()`**
 
-2. *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**)
+2. *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, *string* **`inputCode[codeRow][codeColumn]`**)
 
 
 ## Providing feedback to player
@@ -611,6 +617,8 @@ Welcome, Jiaying
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
  
  Congratulations, Jiaying. Now you have opened the gate and escape the room!
+ 
+ You point of this game is: 90
 
 ---------------------------------------------------------------------------------
 Player name: Jiaying
@@ -627,11 +635,39 @@ Highest points in Iron Gate: 0 / 272
  
 ```
 
+How to do that?
+
 1. If **`isGameOver`** = true.
 
-2. display **`Congratulations, "playName". Now you have opened the gate and escape the room!`**
+2. display proper text regarding to the result.
 
-3. Create a function *string* **`generateAchievement`**(*int* **`difficultyLevel`**, *int* **`gameRound`**, *string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**) to generate the feedback (also the achievement)
+3. Create a function *int* **`generatePoint`**(*int* **`gameRound`**, *string* **`secretCode[codeColumn]`**, *string* **`inputCode[codeRow][codeColumn]`**) and store it as *int* **`currentGamePoint`**.
+
+3. Create a function *string* **`generateAchievement`**(*string* **`playerName`**, *int* **`difficultyLevel`**, *int* **`currentGamePoint`**) to update ateachievement and display it.
+
+What we need:
+
+Variables: 
+
+1. *bool* **`isGameOver`**
+
+2. *int* **`gameRound`**
+
+3. *string* **`secretCode[codeColumn]`**
+
+4. *string* **`inputCode[codeRow][codeColumn]`**
+
+5. *string* **`playerName`**
+
+6. *int* **`difficultyLevel`**
+
+7. *int* **`currentGamePoint`**
+
+Functions:
+
+1. *int* **`generatePoint`**(*int* **`gameRound`**, *string* **`secretCode[codeColumn]`**, *string* **`inputCode[codeRow][codeColumn]`**)
+
+2. *string* **`generateAchievement`**(*string* **`playerName`**, *int* **`difficultyLevel`**, *int* **`currentGamePoint`**)
 
 
 ## The end game conditions
@@ -671,9 +707,19 @@ Welcome, Jiaying
 
 ```
 
-1. 
+1. Call the function *string* **`askForString`**(*string* **`question`**) to ask player wether they want to store the uncompeted game.
 
+2. create a function **`SaveData()`** to store the variable *string* **`playerName`**, *int* **`difficultyLevel`**, *int* **`elementType`**, *string* **`secretCode[codeColumn]`** and *string* **`inputCode[codeRow][codeColumn]`**.
 
+3. Display the proper text for ending the game.
+
+What we need 
+
+Function:
+
+1. *string* **`askForString`**(*string* **`question`**)
+
+2. **`SaveData`**(*string* **`playerName`**, *int* **`difficultyLevel`**, *int* **`elementType`**, *string* **`secretCode[codeColumn]`**, *string* **`inputCode[codeRow][codeColumn]`**)
 
 
 **2. After player finish the game**
@@ -720,7 +766,9 @@ Highest points in Iron Gate: 0 / 272
  
 ```
 
-1.Replace the **`previousOption`**  = **`currentOption`**.
+How to do that?
+
+1. Replace the **`previousOption`**  = **`currentOption`**.
 
 2. Call function **`askForString()`** to ask player to enter game option, check again input. 
 
@@ -916,7 +964,7 @@ Highest points in Iron Gate: 0 / 272
 
 ## UML class diagrams
 
-
+![](masterMindUML.png)
 
 
 
