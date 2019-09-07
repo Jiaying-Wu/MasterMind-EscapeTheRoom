@@ -32,16 +32,17 @@ If you enter all correct elements with correct position into the lock in the
 limited times, the gate will open. That you can escape the room. Otherwise, 
 you will be lock in the room forever......
  
- [S] to start a new game.
+ [N] New game.
  
- [C] to continue the saved game.
+ [C] Continue the saved game.
  
- [H] for help, to display the game rule.
+ [H] for Help.
  
- [A] to view the achievements.
+ [A] view the Achievements.
  
- [E] to end the game.
+ [E] End the game.
  
+ Enter your game option: 
 ```
 
 The above text is the main page of the game, it will stored in this text file **`masterMindMainPage.txt`**. It will load and display at the beginning of the game for player to read.
@@ -83,10 +84,12 @@ The way to caculate the points for each game:
    Maximum 175 points for rock gate and maximum 272 points for iron gate.
 
 6. The points you get from each game will add up to your total points.
-
+   
+                      Press any key to continue...
+   
 ```
 
-The above text is the game rule, it will stored in this text file **`masterMindHelp.txt`**. It will load and display when user press `[H]` for help.
+The above text is the game rule, it will stored in this text file **`masterMindHelp.txt`**. It will load and display when user press [`H`] for help.
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,11 +102,11 @@ Three steps to start the game:
 
 2. Select the gate you want to open:
 
- [1] Wood gate = easy: 4 elements out of 6 with 10 times to try.
+ [1] Wood Gate = easy: 4 elements out of 6 with 10 times to try.
  
- [2] Rock gate = tricky: 5 elements out of 8 with 12 times to try.
+ [2] Rock Gate = tricky: 5 elements out of 8 with 12 times to try.
  
- [3] Iron gate = hard: 6 elements out of 10 with 14 times to try.
+ [3] Iron Gate = hard: 6 elements out of 10 with 14 times to try.
  
 3. Select the type of element for the lock:
 
@@ -116,9 +119,12 @@ Three steps to start the game:
  [4] Word
  
 Then you will face to the gate you have chosen.
+
+                       Press any key to continue...
+
 ```
 
-The above text is the setup for the game, it will stored in this text file **`masterMindStart.txt`**. It will load and display when user press `[S]` to start a new game.
+The above text is the setup for the game, it will stored in this text file **`masterMindStart.txt`**. It will load and display when user press [`S`] to start a new game.
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,13 +133,15 @@ The above text is the setup for the game, it will stored in this text file **`ma
 ---------------------------------------------------------------------------------
 Player name:
 Total points:
-Highest points for wood gate is: 0 / 98
-Highest points for rock gate is: 0 / 175
-Highest points for iron gate is: 0 / 272
+Highest points in Wood Gate: 0 / 98
+Highest points in Rock Gate: 0 / 175
+Highest points in Iron Gate: 0 / 272
 ---------------------------------------------------------------------------------
+
+                        Press any key to continue...
 ```
 
-This is the initial version of player's achievement. It will stored all players' achievement, identify by player name. It will store in this text file **`masterMindAchievement.txt`**, it will load and display when player press `[A]`
+This is the initial version of player's achievement. It will stored all players' achievement, identify by player name. It will store in this text file **`masterMindAchievement.txt`**, it will load and display when player press [`A`]
 
 
 ## Development outline of Master Mind :: Escape the Room
@@ -184,7 +192,7 @@ Functions:
 
 ### Section 2: Main page
 
-The main page display everytime we start the game, or press `[M]` during the game.
+The main page display everytime we start the game, or press [`M`] during the game.
 
 1. Clear the screen.
 
@@ -221,7 +229,7 @@ Functions:
 
 ### Section 3: Help page
 
-The help page display when player press `[H]`.
+The help page display when player press [`H`].
 
 1. Clear the screen.
 
@@ -254,7 +262,7 @@ Functions:
 
 ### Section 4: Achievement page
 
-The achievement page display when player press `[A]`.
+The achievement page display when player press [`A`].
 
 1. Clear the screen.
 
@@ -293,7 +301,7 @@ Before the game start, player need to finish some setup.
 
 2. Replace the **`previousOption`**  = **`currentOption`**.
 
-3. Replace **`currentOption`** = "s".
+3. Replace **`currentOption`** = "n".
 
 4. Call the function **`displayTitle()`** to display the title.
 
@@ -332,18 +340,24 @@ Functions:
 
 ### Section 6: Game page
 
-After player press [S] and enter their name, select game difficulty level and element type, press a key to continue at last. Then shift to the page display below.
+After player press [`N`] and enter their name, select game difficulty level and element type, press a key to continue at last. Then shift to the page display below.
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                        MasterMind :: Escape the Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Welcome, `playName`
+
+ [H] help    [S]Save uncompleted game    [E] end game
+
  .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
  | .---. .---. .---. .---.               |
  | |   | |   | |   | |   |  Hidden Code  |
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
  
 ```
 
@@ -365,7 +379,7 @@ After player press [S] and enter their name, select game difficulty level and el
 
 5. Store the return *string* as **`gameTable`** and display **`gameTable`**.
 
-5. Generate the a string vector **`secretCode`** using function **`generateCode()`**.
+6. Generate the a string vector **`secretCode`** using function **`generateCode()`**.
 
 What we need:
 
@@ -398,12 +412,26 @@ Functions:
 
 ## The player's turn
 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Welcome, `playName`
 
+ [H] Help    [M] Main page    [N] New game    [E] End game
 
-
-
-
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
+ 
+ Enter code or the game option: 1111
+ 
+```
 
 1. After the press a key to continue, clear the screen.
 
@@ -417,6 +445,32 @@ Functions:
 
 ## Processing player input
 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Welcome, `playName`
+
+ [H] Help    [M] Main page    [N] New game    [E] End game
+
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
+ 
+ Enter the code or game option: 
+
+```
+
+For example, player enter the code "1111", the secret code is "4321". That is one number is correct match. Hence, return a "`#`" on the back.
 
 
 
@@ -427,35 +481,240 @@ Functions:
 
 ## Providing feedback to player
 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Welcome, `playName`
 
+ [H] Help    [M] Main page    [N] New game    [E] End game
 
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 4 | | 3 | | 2 | | 1 |  # # # #      |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ Congratulations, `playName` you have opened the Wood Gate!
+ 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       Name: `playName`
+       Gate: Wood Gate
+       Points: 90 / 98
+       Highest points in Wood Gate: 90 / 98
+       Total points: 90
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-
-
+ Enter the game option: 
+ 
+```
 
 
 ## The end game conditions
 
+Player can enter [`E`] to end the game at anytime.
 
+1. **In the middle of the game**
 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Welcome, `playName`
 
+ [H] Help    [M] Main page    [N] New game    [E] End game
 
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
+ 
+ Enter the code or game option: e
+ 
+ You haven't finish the game, do you want to saved it for next time? (y/n): y
+ 
+ You have saved this game.
+ 
+ Thank you for playing this game. Goodbye, `playName`!
 
+```
+
+2. **After player finish the game**
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Welcome, `playName`
+
+ [H] Help    [M] Main page    [N] New game    [E] End game
+
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 4 | | 3 | | 2 | | 1 |  # # # #      |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ Congratulations, `playName` you have opened the Wood Gate!
+ 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       Name: `playName`
+       Gate: Wood Gate
+       Points: 90 / 98
+       Highest points in Wood Gate: 90 / 98
+       Total points: 90
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Enter the game option: e
+ 
+ Thank you for playing this game. Goodbye, `playName`!
+ 
+```
 
 
 
 ## Additional features included
 
+1. Player can continue the saved uncompleted game, that is when they press [`C`] in the Main page. Then, player will the saved game.
 
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Welcome, `playName`
 
+ [H] Help    [M] Main page    [N] New game    [E] End game
 
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
+ 
+ Enter the code or game option:
 
+```
 
+2. Player can press [`H`] to ask for help, that is to display the game rule.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Three levels of this game:
+
+ [1] wood gate = easy, 4 elements out of 6 with 10 times to try.
+ 
+ [2] Rock gate = tricky: 5 elements out of 8 with 12 times to try.
+ 
+ [3] Iron gate = hard: 6 elements out of 10 with 14 times to try.
+
+After you enter the elements into the lock, the lock will provide you some clues.
+
+- One `#` will show up if you enter a correct element in correct position.
+
+- One `*` will show up if you enter a correct element in wrong position.
+
+- No symbol for a worng element
+
+- The order of symbols to show up is random in each time.
+
+The way to caculate the points for each game:
+
+1. The points for wood gate start from 100, rock gate start from 180 and
+   iron gate start from 280.
+
+3. Each time will cost you 10 points in wood gate, 15 points in rock gate,
+   20 points in iron gate.
+
+4. 2 points for one `#`, 1 point for one `*`.
+
+5. Maximum points for opening wood gate is 98, that is four `#` in 1 time.
+   Maximum 175 points for rock gate and maximum 272 points for iron gate.
+
+6. The points you get from each game will add up to your total points.
+   
+                      Press any key to continue...
+   
+```
+
+After player press a key, it will go back to the ongoing game.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Welcome, `playName`
+
+ [H] Help    [M] Main page    [N] New game    [E] End game
+
+ .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ | .---. .---. .---. .---.               |
+ | |   | |   | |   | |   |  Hidden Code  |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+ 
+ The code elements: 0 1 2 3 4 5
+ 
+ Enter the code or game option:
+
+```
+
+3. Press [`A`] to view the achievements of all players, the inditifier is `playerName`. It record the total points of each user and the highest points each user have got in each gate.
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------------------
+Player name:
+Total points:
+Highest points in Wood Gate: 0 / 98
+Highest points in Rock Gate: 0 / 175
+Highest points in Iron Gate: 0 / 272
+---------------------------------------------------------------------------------
+
+                        Press any key to continue...
+```
 
 
 ## UML class diagrams
