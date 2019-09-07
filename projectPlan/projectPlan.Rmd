@@ -2,8 +2,8 @@
 title: 'Project Plan for Master Mind :: Escape the Room'
 author: "Jiaying Wu"
 output:
-  pdf_document: default
   word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -230,6 +230,10 @@ Functions:
 
 3. *string* **`askForString`**(*string* **`question`**) to ask a string from player.
 
+Text file:
+
+1. **`masterMindMainPage.txt`**
+
 
 ### Section 3: Help page
 
@@ -263,6 +267,10 @@ Functions:
 
 2. *void* **`readTextFile`**(*string* **`fileName`**) to read **`masterMindHelp.txt`** then display Help page.
 
+Text file:
+
+1. **`masterMindHelp.txt`**
+
 
 ### Section 4: Achievement page
 
@@ -295,6 +303,10 @@ Functions:
 1. *void* **`displayTitle()`** to display the title.
 
 2. *void* **`readTextFile`**(*string* **`fileName`**) to read **`masterMindAchievement.txt`** then display achievement page.
+
+Text file:
+
+1. **`masterMindAchievement.txt`**
 
 
 ### Section 5: Start game page
@@ -349,6 +361,8 @@ Variables:
 
 4. *int* **`difficultyLevel`**
 
+5. *int* **`elementType`**
+
 Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
@@ -369,7 +383,7 @@ After player press [`N`] and enter their name, select game difficulty level and 
 
 Welcome, Jiaying
 
- [H] help    [S]Save uncompleted game    [E] end game
+ [H] Help    [M] Main page    [N] New game    [E] End game
 
  .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
  | .---. .---. .---. .---.               |
@@ -385,49 +399,58 @@ How to do that?
 
 2. Call the function **`displayTitle()`** to display the title.
 
-3. Create the following local variables:
+3. Create and initialize an *int* **`currentRound`** = 0. That indicate the current game round.
 
-* An *int* **`codeColumn`** = 3 + **`difficultyLevel`** to indicate the number of columns in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
+4. Create a *bool* **`isGameOver`** = false, to indicate whether the game is over or not.
 
-* An *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
+5. Create an *int* **`codeColumn`** = 3 + **`difficultyLevel`** to indicate the number of columns in one row, that is the numbers of element in the secret code. Possible value is {4, 5, 6}.
 
-* Create and initialize an *int* **`gameRound`** = 0. That indicate the current game round.
+6. Create an *int* **`numberPossibleElement`** = 4 + 2 x **`difficultyLevel`** to indicate the number of all possible elements in one row. Possible value is {6, 8, 10}.
 
-4. Generate the a string vector **`secretCode`** using function **`generateSecretCode()`**.
+7. Create an *int* **`codeRow`** = 8 + 2 * **`difficultyLevel`** to indicate the number of rows, that is the times players can try. Possible value is {10, 12, 14}.
 
-5. Create a function to *string* **`gameTableTitle`**() to generate the row of welcome, options and hidden code. *string* **`playerName`** determine player name, *int* **`codeColumn`** determine how many cell and **`elementType`** to determine how many empty space inside the cell. 
+8. Create and initiate a 2 dimensions *string* array **inputCode[`codeRow`][`codeColumn`]** to the code input by player. Numbers of rows determine by **`codeRow`**, numbers of columns determine by **`codeColumn`**.
 
-6. Store the return *string* as **`gameTable`** and then display **`gameTable`**.
+9. Generate the *string* array **`secretCode[codeColumn]`** using function **`generateSecretCode()`**.
+
+10. Create a function  *string* **`gameTableTitle`**() to generate the row of welcome, options and hidden code. *string* **`playerName`** determine player name, *int* **`codeColumn`** determine how many cell and **`elementType`** to determine how many empty space inside the cell. 
+
+11. Store the return *string* as **`gameTable`**, then display **`gameTable`**.
 
 
 What we need:
 
 Variables:
 
-1. *int* **`difficultyLevel`**
+1. *string* **`playerName`**
 
-2. *int* **`possibleElement`**
+2. *int* **`difficultyLevel`**
 
-3. *int* **`codeColumn`**
+3. *int* **`elementType`**
 
-4. *int* **`codeRow`**
+4. *int* **`gameRound`**
 
-5. *int* **`elementType`**
+5. *int* **`codeColumn`**
 
-6. *int* **`gameRound`**
+6. *int* **`numberPossibleElement`**
 
-7. *string* **`gameTable`**
+7. *int* **`codeRow`**
 
-8. *vector<string>* **`secretCode`**
+8. *string* **`allCode[codeRow][codeColumn]`**
+
+9. *string* **`secretCode[codeColumn]`**
+
+10. *string* **`gameTable`**
+
+11. *bool* **`isGameOver`**
 
 Functions:
 
 1. *void* **`displayTitle()`** to display the title of the game.
 
-2. *vector<string>* **`generateSecretCode`**(*int* **`codeColumn`**, *int* **`elementType`**)
+2. *string* **`generateSecretCode`**(*int* **`codeColumn`**, *int* **`elementType`**)
 
 3. *string* **`gameTableTitle`**(*string* **`playerName`**, *int* **`codeColumn`**, *int* **`elementType`**)
-
 
 
 ## The player's turn
@@ -452,19 +475,49 @@ Welcome, Jiaying
  Enter code or the game option: 1111
  
 ```
-After player press a key to continue,
 
-1. clear the screen.
+How to do that?
 
-2. display the title of the game.
+1. **`gameRound`** += 1
 
-3. 
+2. Create a function *string* **`displayElement`**(*int* **`elementType`**, *int* **`numberPossibleElement`**) to display all possible elements of number or symbol or letter in of the code base on the difficulty level. Also, read the **`masterMindWord.txt`** file and display all possible element of word.
 
+3. Store the return *string* as **`possibleElement`**.
 
+4. Create a function *string* **`askForCode`**(*string* **`question`**, *string* **`possibleElement`**) to ask player enter the code or game option.
 
+5. Check the player input, if not match **`possibleElement`** or game option, return error message and call **`askForCode`** again until player enter correct input.
+
+6. Store the return *string* into the *string* array **`allCode[codeRow][codeColumn]`**. That is the first row of the array. 
+
+What we need:
+
+Variables: 
+
+1. *int* **`gameRound`**
+
+2. *int* **`elementType`**
+
+3. *int* **`numberPossibleElement`**
+
+4. *string* **`possibleElement`**
+
+5. *string* **`allCode[codeRow][codeColumn]`**.
+
+Functions:
+
+1. *string* **`displayElement`**(*int* **`elementType`**)
+
+2. *string* **`askForCode`**(*string* **`question`**, *string* **`possibleElement`**)
+
+Text file:
+
+1. **`masterMindWord.txt`**
 
 
 ## Processing player input
+
+For example, player have enterd a code "1111", the secret code is "4321". That is one number correctly matched. Hence, return a "`#`" on the back.
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -484,24 +537,52 @@ Welcome, Jiaying
  | | 1 | | 1 | | 1 | | 1 |  #            |
  | '---' '---' '---' '---'               |
  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
- | .---. .---. .---. .---.               |
- | |   | |   | |   | |   |               |
- | '---' '---' '---' '---'               |
- '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
- 
+
  The code elements: 0 1 2 3 4 5
  
  Enter the code or game option: 
 
 ```
 
-For example, player enter the code "1111", the secret code is "4321". That is one number correctly matched. Hence, return a "`#`" on the back.
+How to da that?
 
+1. Clear the screen.
 
+2. Call the function **`displayTitle()`** to display the title.
 
+3. Create a function  *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**) to check the each row of input code in **`allCode[codeRow][codeColumn]`** against the **`secretCode[codeColumn]`**. Provide the body part of the table, that is:
 
+```
+ | .---. .---. .---. .---.               |
+ | | 1 | | 1 | | 1 | | 1 |  #            |
+ | '---' '---' '---' '---'               |
+ '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
+````
 
+4. Then **`gameTable`** += the *string* return by function **`gameTableBody()`**.
+
+5. Display **`gameTable`**.
+
+6. Also check whether the input match the secret code, if so *bool* **`isGameOver`** = true. Then check *int* **`gameRound`** equal to *int* **`codeColumn`**, if so *bool* **`isGameOver`** = true.
+
+What we need:
+
+Variables: 
+
+1. **`gameTable`**
+
+2. *bool* **`isGameOver`**
+
+3. *int* **`gameRound`**
+
+4. *int* **`codeColumn`**
+
+Functions:
+
+1. *void* **`displayTitle()`**
+
+2. *string* **`gameTableBody`**(*string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**)
 
 
 ## Providing feedback to player
@@ -546,6 +627,12 @@ Highest points in Iron Gate: 0 / 272
  
 ```
 
+1. If **`isGameOver`** = true.
+
+2. display **`Congratulations, "playName". Now you have opened the gate and escape the room!`**
+
+3. Create a function *string* **`generateAchievement`**(*int* **`difficultyLevel`**, *int* **`gameRound`**, *string* **`secretCode[codeColumn]`**, **`allCode[codeRow][codeColumn]`**) to generate the feedback (also the achievement)
+
 
 ## The end game conditions
 
@@ -583,6 +670,11 @@ Welcome, Jiaying
  Thank you for playing this game. Goodbye, Jiaying!
 
 ```
+
+1. 
+
+
+
 
 **2. After player finish the game**
 
@@ -628,6 +720,25 @@ Highest points in Iron Gate: 0 / 272
  
 ```
 
+1.Replace the **`previousOption`**  = **`currentOption`**.
+
+2. Call function **`askForString()`** to ask player to enter game option, check again input. 
+
+3. Store the return *string* as **`currentOption`** = "e". 
+
+4. Then end the game.
+
+What we need:
+
+Variables:
+
+1. *string* **`previousOption`**  
+
+2. *string* **`currentOption`**
+
+Function:
+
+1. *string* **`askForString`**(*string* **`question`**) to ask player's name, *string* **question** is the local variable.
 
 
 ## Additional features included
