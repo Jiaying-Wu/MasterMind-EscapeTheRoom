@@ -1,0 +1,27 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Three steps to start the game:
+
+1. Enter your name.
+
+2. Select the gate you want to open:
+
+ [1] Wood Gate = easy: 4 elements out of 6 with 10 times to try.
+
+ [2] Rock Gate = tricky: 5 elements out of 8 with 12 times to try.
+
+ [3] Iron Gate = hard: 6 elements out of 10 with 14 times to try.
+
+3. Select the type of element for the lock:
+
+ [1] Number
+
+ [2] Letter
+
+ [3] Symbol
+
+ [4] Word
+
+Then you will face to the gate you have chosen.

@@ -1,0 +1,22 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"You have been locked in an empty dark room, running out of food and water.
+In front of you, there is a gate with a giant lock. The times you can enter
+the numbers into the lock is limited! Once you ran out of the times, the
+gate will lock forever! Hurry up! Clock is ticking......"
+
+If you enter all correct elements with correct position into the lock in the
+limited times, the gate will open. That you can escape the room. Otherwise,
+you will be lock in the room forever......
+
+ [N] New game.
+
+ [C] Continue the saved game.
+
+ [H] for Help.
+
+ [A] view the Achievements.
+
+ [E] End the game.

@@ -1,0 +1,44 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       MasterMind :: Escape the Room
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Three levels of this game:
+
+ [1] wood gate = easy, 4 elements out of 6 with 10 times to try.
+
+ [2] Rock gate = tricky: 5 elements out of 8 with 12 times to try.
+
+ [3] Iron gate = hard: 6 elements out of 10 with 14 times to try.
+
+After you enter the elements into the lock, the lock will provide you some clues.
+
+- One `#` will show up if you enter a correct element in correct position.
+
+- One `*` will show up if you enter a correct element in wrong position.
+
+- No symbol for a worng element
+
+- The order of symbols to show up is random in each time.
+
+The way to caculate the points for each game:
+
+1. The points for wood gate start from 100, rock gate start from 180 and
+   iron gate start from 280.
+
+3. Each time will cost you 10 points in wood gate, 15 points in rock gate,
+   20 points in iron gate.
+
+4. 2 points for one `#`, 1 point for one `*`.
+
+5. Maximum points for opening wood gate is 98, that is four `#` in 1 time.
+   Maximum 175 points for rock gate and maximum 272 points for iron gate.
+
+6. The points you get from each game will add up to your total points.
+
+Ranking tier: 3 level of ranking, player promotion/demotion every 5 games won/lost.
+
+1. Beginner
+
+2. Expert
+
+3. Master
