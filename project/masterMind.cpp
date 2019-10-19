@@ -1,7 +1,7 @@
 /*********************************************
 Project: Master Mind - Escape the Room
 Author: Jiaying Wu
-Purpose: Driver Class File
+Purpose: masterMind class file
 ***********************************************/
 
 // header

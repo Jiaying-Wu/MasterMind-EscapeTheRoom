@@ -16,11 +16,11 @@ After you enter the elements into the lock, the lock will provide you some clues
 
 - One `*` will show up if you enter a correct element in wrong position.
 
-- No symbol for a worng element
+- No symbol for a wrong element
 
 - The order of symbols to show up is random in each time.
 
-The way to caculate the points for each game:
+The way to calculate the points for each game:
 
 1. The points for wood gate start from 100, rock gate start from 180 and
    iron gate start from 280.

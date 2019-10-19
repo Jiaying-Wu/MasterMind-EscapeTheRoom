@@ -1,16 +1,10 @@
 /**************************************************
 Project: Master Mind - Escape the Room
 Author: Jiaying Wu
-Purpose: masterMind header file
+Purpose: board header file
 **************************************************/
 
-#ifndef CHARACTER_H
-#define CHARACTER_H
-
-// header
-
-
-// namespace
-
+#ifndef BOARD_H
+#define BOARD_H
 
 #endif
