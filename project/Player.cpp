@@ -41,19 +41,14 @@ int Player::getSelectElementType() {
 }
 
 // MUTATOR FUNCTIONS
-void Player::setPlayerName(string newPlayerName) {
-    if (newPlayerName.length() > 0) {
-        *playerName = newPlayerName;
-    }
-}
 
-void setSelectGate(int newSelectGate) {
+void retSelectGate(int newSelectGate) {
     if (newSelectGate >= 1 && newSelectGate <= 3) {
         *selectGate = newSelectGate;
     }
 }
 
-void setSelectElementType(int newSelectElementType) {
+void retSelectElementType(int newSelectElementType) {
     if (newSelectElementType >= 1 && newSelectElementType <= 4) {
         *selectElementType = newSelectElementType;
     }

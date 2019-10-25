@@ -17,10 +17,12 @@ Purpose: masterMind header file, declare the variable and function for the
 #include "Player.h"
 #include "Code.h"
 
-// namespace
-using namespace std;
-
 // declare variable
+
+Player player;
+
+Code code;
+
 bool *isMainPageOver;
 
 bool *isOneGameOver;
@@ -29,11 +31,12 @@ int *totalGameRound;
 
 int *currentGameRound;
 
-string *guessCode;
+vector<string> *secretCode;
+
+vector<string> *guessCode;
 
 bool *isMultiGameOver;
 
-bool *isGuessCodeCorrect;
 
 // declare function
 void displayTitle();
@@ -47,6 +50,12 @@ void writeFile(string writeFileName, string writeData);
 void displayMainPage();
 
 void oneGameLoop();
+
+void setGame();
+
+vector<string> generateSecretCode();
+
+vector<string> askForGuessCode();
 
 bool checkOneGameOver();
 

@@ -13,7 +13,7 @@ Purpose: Player header file, declare the variables and function relate to the
 
 // header
 #include <string>
-#include <array>
+#include <vector>
 
 // namespace
 using namespace std;
@@ -29,7 +29,11 @@ private:
 public:
     // Constructors
     Player();
-    Player(string newPlayerName, int newSelectGate, int newSelectElementType);
+
+    Player(string newPlayerName,
+           int newSelectGate,
+           int newSelectElementType
+    );
 
     // Destructor
     ~Player();
@@ -39,10 +43,8 @@ public:
     int getSelectGate();
     int getSelectElementType();
 
-
     // Mutator Functions
-    void setPlayerName(string newPlayerName);
-    void setSelectGate(int newSelectGate);
-    void setSelectElementType(int newSelectElementType);
+    void retSelectGate(int newSelectGate);
+    void retSelectElementType(int newSelectElementType);
 };
 #endif

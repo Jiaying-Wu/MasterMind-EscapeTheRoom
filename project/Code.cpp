@@ -3,9 +3,10 @@ Project: Master Mind - Escape the Room
 Author: Jiaying Wu
 Purpose: Code class file, define the variables and function relate to the
  secrete code.
- * the code column
- * the code row
- * Each type of element
+ * column of code
+ * row of code
+ * number of possible element of the code
+ The code determine by the selectGate of Player.
 ******************************************************************************/
 
 // header
@@ -13,48 +14,21 @@ Purpose: Code class file, define the variables and function relate to the
 
 Code::Code(){}
 
-Code::Code(string newPlayerName, int newSelectGate, int newSelectElementType) {
-    playerName = new string(newPlayerName);
-    selectGate = new int(newSelectGate);
-    selectElementType = new int(newSelectElementType);
+Code::Code(int newCodeColumn) {
+    codeColumn = new int(newCodeColumn);
+    codeRow = new int(newCodeRow);
+    numberPossibleElement = new int(newNumberPossibleElement);
 }
 
 // Destructor
-Player::~Player() {
+Code::~Code() {
     // remove from the heap
-    delete playerName;
-    delete selectGate;
-    delete selectElementType;
+    delete codeColumn;
+    delete codeRow;
+    delete numberPossibleElement;
 }
 
 // ACCESSOR FUNCTIONS
-string Player::getPlayerName() {
-    return *playerName;
-}
-
-int Player::getSelectGate() {
-    return *selectGate;
-}
-
-int Player::getSelectElementType() {
-    return *selectElementType;
-}
-
-// MUTATOR FUNCTIONS
-void Player::setPlayerName(string newPlayerName) {
-    if (newPlayerName.length() > 0) {
-        *playerName = newPlayerName;
-    }
-}
-
-void setSelectGate(int newSelectGate) {
-    if (newSelectGate >= 1 && newSelectGate <= 3) {
-        *selectGate = newSelectGate;
-    }
-}
-
-void setSelectElementType(int newSelectElementType) {
-    if (newSelectElementType >= 1 && newSelectElementType <= 4) {
-        *selectElementType = newSelectElementType;
-    }
+int Code::getCodeColumn() {
+    return *codeColumn;
 }

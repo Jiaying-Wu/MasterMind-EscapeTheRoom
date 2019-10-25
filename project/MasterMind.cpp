@@ -4,15 +4,14 @@ Author: Jiaying Wu
 Purpose: Application file, to hold the main() function and controls the overall
  flow of the game.
  * loop for Main page
- * loop for one game
- * loop for player want to continue next game
- * compare guess code and secret code, display ouput table
+ * loop for each round of one game
+ * loop for each game of multi game
+ * compare guess code and secret code, display output table
  * feedback when one game finish
 ******************************************************************************/
 
 // header
 #include "MasterMind.h"
-
 
 // main function
 int main(){
@@ -139,15 +138,53 @@ else if (currentOption == "c" || currentOption == "C") {
 
 
 
-// start the game when select [S] or [C]
+// loop for each round of one game
 void oneGameLoop() {
-    // check is the multi game loop end
     *isOneGameOver = false;
-    *isOneGameOver = checkMultiGameOver();
-    while(!isOneGameOver) {
+    // set game environment
+    setGame();
+    // generate secrete code
+    srand(unsigned(time(NULL)));
+    *secretCode = generateSecretCode();
 
+    // loop for multi rounds of one game
+    while(!isOneGameOver) {
+        *guessCode = askForGuessCode();
+        *isOneGameOver = checkOneGameOver();
     }
 }
+
+// set the game environment
+void setGame() {
+    // construct Player class
+    player = Player(
+            // player name
+            askForString("\n Please enter your name: "),
+            // selectGate, 1 to 3
+            askForInteger("\n Please select the gate: "),
+            // selectElementType, 1 to 4
+            askForInteger("\n Please select the element type: ")
+    );
+
+    // Construct Code Class
+    code = Code(
+            // codeColumn = 3 + selectGate
+            player.getSelectGate() + 3,
+            // codeRow = 8 + 2 * selectGate
+            player.getSelectGate() * 2 + 8,
+            // numberPossibleElement = 4 + 2 * selectGate
+            player.getSelectGate() * 2 + 4
+    );
+}
+
+vector<string> generateSecretCode(){
+
+}
+
+vector<string> askForGuessCode(){
+
+}
+
 
 // function to check one game is over
 bool checkOneGameOver() {
@@ -155,28 +192,33 @@ bool checkOneGameOver() {
     if (*currentGameRound = *totalGameRound) {
         return true;
     }
+
     // the guess code match the secret code
-    else if (*isGuessCodeCorrect){
+    else if (*guessCode == *secretCode){
         return true;
     }
+
     // player enter [E] when guessing the code, end the game
-    else if (*guessCode = "e" || *guessCode = "E") {
+    else if (*guessCode == "e" || *guessCode == "E") {
         return true;
     }
+
     // continue the game
     else {
         return false;
     }
 }
 
-// loop for player want to continue next game
+// loop for each game of multi game
 void multiGameLoop(){
-    // check is the multi game loop end
     *isMultiGameOver = false;
-    *isMultiGameOver = checkMultiGameOver();
-    // continue next game if player select
-    while(!*isMultiGameOver){
 
+    // loop for multi games
+    while(!*isMultiGameOver){
+        // start one game
+        oneGameLoop();
+        // check is the multi game loop end
+        *isMultiGameOver = checkMultiGameOver();
     }
 }
 
