@@ -14,7 +14,7 @@ Purpose: Code class file, define the variables and function relate to the
 
 Code::Code(){}
 
-Code::Code(int newCodeColumn) {
+Code::Code() {
     codeColumn = new int(newCodeColumn);
     codeRow = new int(newCodeRow);
     numberPossibleElement = new int(newNumberPossibleElement);
@@ -31,4 +31,12 @@ Code::~Code() {
 // ACCESSOR FUNCTIONS
 int Code::getCodeColumn() {
     return *codeColumn;
+}
+
+int Code::getCodeRow() {
+    return *codeRow;
+}
+
+int Code::getNumberPossibleElement() {
+    return *numberPossibleElement;
 }

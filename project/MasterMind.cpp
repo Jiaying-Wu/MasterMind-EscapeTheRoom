@@ -11,6 +11,7 @@ Purpose: Application file, to hold the main() function and controls the overall
 ******************************************************************************/
 
 // header
+#include <valarray>
 #include "MasterMind.h"
 
 // main function
@@ -51,7 +52,6 @@ int askForInteger(string question) {
     return userInput;
 }
 
-
 // function to read the text file
 void readFile(string readFileName) {
     // open file for reading
@@ -63,7 +63,8 @@ void readFile(string readFileName) {
             getline(fileToRead, line);
             cout << line << "\n";
         }
-    } else {
+    }
+    else {
         cout << "\n" << readFileName << " not found!\n";
     }
     // close the file
@@ -76,7 +77,8 @@ void writeFile(string writeFileName, string writeData) {
     ofstream fileToWrite(writeFileName, ios::app);
     if (fileToWrite.is_open()) {
         fileToWrite << writeData << endl;
-    } else {
+    }
+    else {
         cout << "\n" << writeFileName << " not found!\n";
     }
     // close the file
@@ -145,11 +147,19 @@ void oneGameLoop() {
     setGame();
     // generate secrete code
     srand(unsigned(time(NULL)));
-    *secretCode = generateSecretCode();
+    *possibleElementSet = generatePossibleElementSet(player.getSelectElementType(), code.getNumberPossibleElement());
+    *secretCode = generateSecretCode(*possibleElementSet, code.getCodeColumn());
 
     // loop for multi rounds of one game
     while(!isOneGameOver) {
+        // clear the screen and display title
+        system("cls");
+        displayTitle();
+        // ask for guess code
         *guessCode = askForGuessCode();
+        // display the output table of the code
+        displayTable();
+        // check is game over
         *isOneGameOver = checkOneGameOver();
     }
 }
@@ -158,12 +168,11 @@ void oneGameLoop() {
 void setGame() {
     // construct Player class
     player = Player(
-            // player name
             askForString("\n Please enter your name: "),
             // selectGate, 1 to 3
-            askForInteger("\n Please select the gate: "),
+            askForInteger("\n Please select the gate (1 - 3): "),
             // selectElementType, 1 to 4
-            askForInteger("\n Please select the element type: ")
+            askForInteger("\n Please select the element type (1 - 4): ")
     );
 
     // Construct Code Class
@@ -175,13 +184,51 @@ void setGame() {
             // numberPossibleElement = 4 + 2 * selectGate
             player.getSelectGate() * 2 + 4
     );
+
+    // define the
 }
 
-vector<string> generateSecretCode(){
+vector<string> generatePossibleElementSet(int type, int keepElement) {
+    vector<string> myVector;
+    myVector.clear();
+
+    // Number
+    if (type == 1){
+        myVector = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    }
+
+    // Letter
+    else if (type == 2){
+        myVector = {"a", "b", "c", "d", "f", "g", "i", "j", "k", "l"};
+    }
+    // Symbol
+    else if (type == 3){
+        myVector = {"`", "~", "!", "@", "+", "$", "%", "^", "&", "?"};
+
+    }
+
+    // Word
+    else if (type == 4){
+        myVector = {"apple", "pear", "melon", "mango", "banana", "berry", "lemon", "grape", "orange", "kiwi"};
+    }
+
+    // return the vector of possible vector
+    myVector.erase(myVector.begin()+keepElement, myVector.end());
+    return myVector;
+}
+
+vector<string> generateSecretCode(vector<string> elementSet, int codeColumn){
+    vector<string> myVector;
+    myVector.clear();
+    myVector = elementSet;
 
 }
 
 vector<string> askForGuessCode(){
+
+}
+
+void displayTable(){
 
 }
 
