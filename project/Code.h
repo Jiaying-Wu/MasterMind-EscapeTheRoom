@@ -3,6 +3,9 @@ Project: Master Mind - Escape the Room
 Author: Jiaying Wu
 Purpose: Code header file, declare the variables and function relate to the
  generate and compare the code.
+ * the code column
+ * the code row
+ * Each type of element
 ******************************************************************************/
 
 #ifndef CODE_H
@@ -10,23 +13,44 @@ Purpose: Code header file, declare the variables and function relate to the
 
 // header
 #include <string>
-#include <ctime>
+#include <vector>
 
 // namespace
 using namespace std;
 
-// variable
-int codeColumn
+class Code {
+private:
+    // Static Const Variables
+    static const int minPoint = 0;
+    static const int maxPointWood = 98;
+    static const int maxPointRock = 175;
+    static const int maxPointIron = 272;
 
-int codeRow
+    // variable
+    int *codeColumn;
+    int *codeRow;
+    int *totalRound;
+    string *secretCode;
+    string *guessCode;
+    bool *isGuessCodeCorrect;
 
-string secretCode;
+    // private function
+
+public:
+    // Constructors
+    Code();
 
 
-// function
+    // Destructor
+    ~Code();
 
+    // Accessor Functions
+    int getCodeColumn();
+    int getCodeRow();
+    string getSecretCode();
+    bool getIsGuessCodeCorrect();
 
+    // Mutator Functions
 
-//
-
+};
 #endif

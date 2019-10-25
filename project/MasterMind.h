@@ -3,34 +3,55 @@ Project: Master Mind - Escape the Room
 Author: Jiaying Wu
 Purpose: masterMind header file, declare the variable and function for the
  overall flow of the game.
+ *
+ *
 ******************************************************************************/
 
 #ifndef MASTERMIND_H
 #define MASTERMIND_H
 
 // header
-#include <string>
-#include <vector>
-#include "GeneralFunction.h"
+#include <iostream>
+#include <fstream>
+#include <ctime>
+#include "Player.h"
+#include "Code.h"
 
 // namespace
 using namespace std;
 
 // declare variable
-string currentOption = "m";
-bool isMainPageOver = false;
+bool *isMainPageOver;
 
+bool *isOneGameOver;
 
-bool isGameOver;
+int *totalGameRound;
 
-bool isNewGame;
+int *currentGameRound;
 
+string *guessCode;
+
+bool *isMultiGameOver;
+
+bool *isGuessCodeCorrect;
 
 // declare function
-void displayMainPage(string currentOption);
+void displayTitle();
 
-void gameLoop();
+string askForString(string question);
 
-bool checkGameOver();
+void readFile(string textFileName);
+
+void writeFile(string writeFileName, string writeData);
+
+void displayMainPage();
+
+void oneGameLoop();
+
+bool checkOneGameOver();
+
+void multiGameLoop();
+
+bool checkMultiGameOver();
 
 #endif

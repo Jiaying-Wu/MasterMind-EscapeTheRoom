@@ -1,19 +1,19 @@
 /*****************************************************************************
 Project: Master Mind - Escape the Room
 Author: Jiaying Wu
-Purpose: Code class file, define the variables and function relate to the
- secrete code.
- * the code column
- * the code row
- * Each type of element
+Purpose: Player header file, declare the variables and function relate to the
+ player.
+ * player name
+ * the type of gate selected
+ * the type of element selected
 ******************************************************************************/
 
 // header
-#include "Code.h"
+#include "Player.h"
 
-Code::Code(){}
+Player::Player(){}
 
-Code::Code(string newPlayerName, int newSelectGate, int newSelectElementType) {
+Player::Player(string newPlayerName, int newSelectGate, int newSelectElementType) {
     playerName = new string(newPlayerName);
     selectGate = new int(newSelectGate);
     selectElementType = new int(newSelectElementType);

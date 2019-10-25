@@ -17,6 +17,4 @@ you will be lock in the room forever......
 
  [H] for Help.
 
- [A] view the Achievements.
-
  [E] End the game.
