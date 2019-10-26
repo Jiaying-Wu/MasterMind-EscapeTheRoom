@@ -48,15 +48,14 @@ vector<string> *totalGuessCode;
 
 bool *isMultiGameOver;
 
+int winGame;
+
+int losGame;
 
 // declare function
-void displayTitle();
-
 string askForString(string question);
 
 void readFile(string textFileName);
-
-void writeFile(string writeFileName, string writeData);
 
 void displayMainPage();
 
@@ -76,9 +75,13 @@ vector<string> askForGuessCode(vector<string> possibleElement);
 
 vector<string> storeTotalGuessCode(vector<string> storeCode);
 
+void displayTitle();
+
 void displayTable(vector<string> allGuessCode, int currentRound, int column);
 
-bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess);
+string generateHint(vector<string> guess, vector<string> secret);
 
-void feedBack();
+bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess, int win, int lost);
+
+void feedBack(string name, string rank,int win, int lost, int gamePoint, int maxPoint);
 #endif

@@ -13,10 +13,11 @@ Purpose: Player header file, declare the variables and function relate to the
 
 Player::Player(){}
 
-Player::Player(string newPlayerName, int newSelectGate, int newSelectElementType) {
+Player::Player(string newPlayerName, int newSelectGate, int newSelectElementType, string newRank) {
     playerName = new string(newPlayerName);
     selectGate = new int(newSelectGate);
     selectElementType = new int(newSelectElementType);
+    rank = new string(newRank);
 }
 
 // Destructor
@@ -40,16 +41,32 @@ int Player::getSelectElementType() {
     return *selectElementType;
 }
 
+string Player::getRank() {
+    return *rank;
+}
+
 // MUTATOR FUNCTIONS
 
-void retSelectGate(int newSelectGate) {
+void resetSelectGate(int newSelectGate) {
     if (newSelectGate >= 1 && newSelectGate <= 3) {
         *selectGate = newSelectGate;
     }
 }
 
-void retSelectElementType(int newSelectElementType) {
+void resetSelectElementType(int newSelectElementType) {
     if (newSelectElementType >= 1 && newSelectElementType <= 4) {
         *selectElementType = newSelectElementType;
+    }
+}
+
+void resetRank(int winGame, int lossGame) {
+    if (winGame - lossGame >= 5 && winGame - lossGame <= 10) {
+        *rank = "Expert";
+    }
+    else if (winGame - lossGame >= 10) {
+        *rank = "Master";
+    }
+    else {
+        *rank = "Beginner";
     }
 }

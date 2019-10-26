@@ -51,6 +51,8 @@ public:
 
     int getNumberPossibleElement();
 
+    int getMaxPoint(int gate);
+
     // Mutator Functions
     void resetCodeColumn(int newCodeColumn);
 

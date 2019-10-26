@@ -24,13 +24,6 @@ int main(){
     return 0;
 }
 
-// function to display the title
-void displayTitle() {
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-    cout << "\tMasterMind :: Escape the Room\n";
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-}
-
 // function to ask string input
 string askForString(string question) {
     // gets a line response (spaces included)
@@ -70,19 +63,6 @@ void readFile(string readFileName) {
     fileToRead.close();
 }
 
-// function to write data into file
-void writeFile(string writeFileName, string writeData) {
-    // open the file to write
-    ofstream fileToWrite(writeFileName, ios::app);
-    if (fileToWrite.is_open()) {
-        fileToWrite << writeData << endl;
-    }
-    else {
-        cout << "\n" << writeFileName << " not found!\n";
-    }
-    // close the file
-    fileToWrite.close();
-}
 
 // loop for Main page, continue Main page until [N], [C] or [E] enter.
 void displayMainPage() {
@@ -140,7 +120,8 @@ void setFirstGame() {
             // selectGate, 1 to 3
             askForInteger("\n Please select the gate (1 - 3): "),
             // selectElementType, 1 to 4
-            askForInteger("\n Please select the element type (1 - 4): ")
+            askForInteger("\n Please select the element type (1 - 4): "),
+            "Beginner"
     );
 
     // Construct Code Class
@@ -210,10 +191,9 @@ void oneGameLoop() {
         *guessCode = askForGuessCode(*possibleElementSet);
         *totalGuessCode = storeTotalGuessCode(*secretCode);
 
-        // check is game over
-        *currentGameRound ++;
-        *isOneGameOver = checkOneGameOver(*currentGameRound, *totalGameRound, *secretCode, *guessCode);
-        feedBack();
+        // check is game over, and provide feedback if finish all game rounds or guess the correct code
+        *currentGameRound = *currentGameRound + 1;
+        *isOneGameOver = checkOneGameOver(*currentGameRound, *totalGameRound, *secretCode, *guessCode, );
     }
 }
 
@@ -285,12 +265,22 @@ vector<string> storeTotalGuessCode(vector<string> storeCode){
     return myVector;
 }
 
+// function to display the title of game page
+void displayTitle() {
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    cout << "\tMasterMind :: Escape the Room\n";
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    cout << "Welcome, " << player.getPlayerName() << "\n";
+    cout << "\n [H] Help    [N] New game    [E] End game\n";
+    cout << endl;
+}
+
 // display all guess code and hints
 void displayTable(vector<string> allGuessCode, int currentRound, int column){
     // when game round is 0
     stringstream sBox;
     // 2 space for each
-    string boxUpper = "\n\n .";
+    string boxUpper = "\n .";
     string boxTop = "\n |";
     string boxMid = "\n |";
     string boxBot = "\n |";
@@ -330,7 +320,9 @@ void displayTable(vector<string> allGuessCode, int currentRound, int column){
             }
             // 16 spaces for each
             layerTop += "               |";
-            layerMid += "  Hidden Code  |";
+            // 2 space + codeColumn + (16 - 2 - 1 - codeColumn) + 1space
+            vector<string> myVector(allGuessCode.begin()+j*column, allGuessCode.begin()+(j+1)*column-1);
+            layerMid += "  " + generateHint(*guessCode, myVector) + string(13-code.getCodeColumn(), ' ') + "|";
             layerBot += "               |";
             // Print one layer of the table
             sLayer << layerTop << layerMid << layerBot;
@@ -344,16 +336,51 @@ void displayTable(vector<string> allGuessCode, int currentRound, int column){
     cout << endl;
 }
 
-// function to check one game is over
-bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess) {
-    // finish all game rounds
-    if (currentRound == totalRound) {
-        return true;
+// generate the hint "#", "*", " " to insert in the layer
+string generateHint(vector<string> guess, vector<string> secret) {
+    string correctPosition;
+    string correctElement;
+    string spaceString;
+
+    for (int i = 0; i < secret.size(); ++i) {
+        // correct position, "#"
+        if (guess[i] == guess[i]){
+            correctPosition += "#";
+        }
+        // correct element, "*"
+        else if (guess[i] != secret[i] && find(secret.begin(), secret.end(), guess[i]) != secret.end()) {
+            correctElement += "*";
+        }
+        // both wrong, " "
+        else {
+            spaceString += " ";
+        }
     }
 
-    // the guess code match the secret code
-    else if (secret == guess){
+    // combine # , * and space
+    string combString;
+    combString = correctPosition + correctElement + spaceString;
+
+    return combString;
+}
+
+
+// function to check one game is over, and provide feedback if game completed
+bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess, int win, int lost) {
+    // finish all game rounds or guess the correct code, provide feedback
+    if (currentRound == totalRound || secret == guess) {
+        if (secret == guess) {
+            win++;
+        }
+        else {
+            lost++;
+        }
+        // provide feed back
+        feedBack(player.getPlayerName(), player.getRank(), win, lost,  ,code.getMaxPoint(player.getSelectGate()));
+        // return true
         return true;
+        // pause the screen to allow user read the feedback
+        system("pause");
     }
 
     // player enter [E] when guessing the code, end the game
@@ -367,6 +394,12 @@ bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, v
     }
 }
 
-void feedBack(){
-
+void feedBack(string name, string rank, int win, int lost, int gamePoint, int maxPoint) {
+    cout << "\n\n      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    cout << "              Name: " << name << "\n";
+    cout << "              Rank: " <<  rank << "\n";
+    cout << "              Win Games: " << win << "\n";
+    cout << "              Lost Games: " << lost << "\n";
+    cout << "              Point in this game: " <<  gamePoint << " / " << maxPoint << "\n";
+    cout << "      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }

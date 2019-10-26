@@ -40,3 +40,15 @@ int Code::getCodeRow() {
 int Code::getNumberPossibleElement() {
     return *numberPossibleElement;
 }
+
+int Code::getMaxPoint(int gate){
+    if(gate == 1){
+        return maxPointWood
+    }
+    else if(gate == 2){
+        return maxPointRock
+    }
+    else {
+        return maxPointIron
+    }
+};

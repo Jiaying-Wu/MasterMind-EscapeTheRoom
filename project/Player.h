@@ -25,6 +25,7 @@ private:
     string *playerName;
     int *selectGate;
     int *selectElementType;
+    string *rank;
 
 public:
     // Constructors
@@ -32,7 +33,8 @@ public:
 
     Player(string newPlayerName,
            int newSelectGate,
-           int newSelectElementType
+           int newSelectElementType,
+           string newRank
     );
 
     // Destructor
@@ -42,9 +44,11 @@ public:
     string getPlayerName();
     int getSelectGate();
     int getSelectElementType();
+    string getRank();
 
     // Mutator Functions
     void resetSelectGate(int newSelectGate);
     void resetSelectElementType(int newSelectElementType);
+    void resetRank(int winGame, int lossGame);
 };
 #endif
