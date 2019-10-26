@@ -48,9 +48,9 @@ vector<string> *totalGuessCode;
 
 bool *isMultiGameOver;
 
-int winGame;
+int *winGame;
 
-int losGame;
+int *lostGame;
 
 // declare function
 string askForString(string question);
@@ -83,5 +83,5 @@ string generateHint(vector<string> guess, vector<string> secret);
 
 bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess, int win, int lost);
 
-void feedBack(string name, string rank,int win, int lost, int gamePoint, int maxPoint);
+void feedBack(string name, string rank,int win, int lost, int gamePoint);
 #endif

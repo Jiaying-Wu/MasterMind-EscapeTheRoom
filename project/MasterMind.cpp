@@ -104,6 +104,8 @@ void multiGameLoop(){
     setFirstGame();
     *isMultiGameOver = false;
     // loop for multi games
+    *winGame = 0;
+    *lostGame = 0;
     while(!*isMultiGameOver){
         // start one game
         oneGameLoop();
@@ -193,7 +195,7 @@ void oneGameLoop() {
 
         // check is game over, and provide feedback if finish all game rounds or guess the correct code
         *currentGameRound = *currentGameRound + 1;
-        *isOneGameOver = checkOneGameOver(*currentGameRound, *totalGameRound, *secretCode, *guessCode, );
+        *isOneGameOver = checkOneGameOver(*currentGameRound, *totalGameRound, *secretCode, *guessCode, *winGame, *lostGame);
     }
 }
 
@@ -375,8 +377,11 @@ bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, v
         else {
             lost++;
         }
+        // calculate game point
+        int gamePoint = code.getMaxPoint(player.getSelectElementType()) - currentRound*10;
+
         // provide feed back
-        feedBack(player.getPlayerName(), player.getRank(), win, lost,  ,code.getMaxPoint(player.getSelectGate()));
+        feedBack(player.getPlayerName(), player.getRank(), win, lost, gamePoint);
         // return true
         return true;
         // pause the screen to allow user read the feedback
@@ -394,12 +399,13 @@ bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, v
     }
 }
 
-void feedBack(string name, string rank, int win, int lost, int gamePoint, int maxPoint) {
+void feedBack(string name, string rank, int win, int lost, int gamePoint) {
     cout << "\n\n      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     cout << "              Name: " << name << "\n";
     cout << "              Rank: " <<  rank << "\n";
     cout << "              Win Games: " << win << "\n";
     cout << "              Lost Games: " << lost << "\n";
-    cout << "              Point in this game: " <<  gamePoint << " / " << maxPoint << "\n";
+    cout << "              Point in this game: " <<  gamePoint << "\n";
     cout << "      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }
+

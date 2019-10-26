@@ -23,9 +23,9 @@ using namespace std;
 class Code {
 private:
     // Static Const Variables
-    static const int maxPointWood = 98;
-    static const int maxPointRock = 175;
-    static const int maxPointIron = 272;
+    static const int maxPointWood = 100;
+    static const int maxPointRock = 180;
+    static const int maxPointIron = 280;
 
     // variable
     int *codeColumn;
