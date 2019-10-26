@@ -60,9 +60,13 @@ void writeFile(string writeFileName, string writeData);
 
 void displayMainPage();
 
-void oneGameLoop();
-
 void setFirstGame();
+
+void multiGameLoop();
+
+bool checkMultiGameOver();
+
+void oneGameLoop();
 
 vector<string> generatePossibleElementSet(int type, int keepElement);
 
@@ -72,14 +76,9 @@ vector<string> askForGuessCode(vector<string> possibleElement);
 
 vector<string> storeTotalGuessCode(vector<string> storeCode);
 
-void displayTable();
+void displayTable(vector<string> allGuessCode, int currentRound, int column);
 
 bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess);
 
 void feedBack();
-
-void multiGameLoop();
-
-bool checkMultiGameOver();
-
 #endif

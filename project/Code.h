@@ -52,9 +52,9 @@ public:
     int getNumberPossibleElement();
 
     // Mutator Functions
-    void setCodeColumn(int newCodeColumn);
+    void resetCodeColumn(int newCodeColumn);
 
-    void setCodeRow(int newCodeRow);
+    void resetCodeRow(int newCodeRow);
 };
 
 #endif

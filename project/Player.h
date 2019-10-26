@@ -44,7 +44,7 @@ public:
     int getSelectElementType();
 
     // Mutator Functions
-    void retSelectGate(int newSelectGate);
-    void retSelectElementType(int newSelectElementType);
+    void resetSelectGate(int newSelectGate);
+    void resetSelectElementType(int newSelectElementType);
 };
 #endif

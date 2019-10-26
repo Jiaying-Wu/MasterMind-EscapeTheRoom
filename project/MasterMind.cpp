@@ -204,7 +204,7 @@ void oneGameLoop() {
         displayTitle();
 
         // display the previous result
-        displayTable();
+        displayTable(*totalGuessCode, *currentGameRound, code.getCodeColumn());
 
         // ask for guess code
         *guessCode = askForGuessCode(*possibleElementSet);
@@ -238,7 +238,7 @@ vector<string> generatePossibleElementSet(int type, int keepElement) {
 
     // Word
     else if (type == 4){
-        myVector = {"apple", "pear", "melon", "mango", "banana", "berry", "lemon", "grape", "orange", "kiwi"};
+        myVector = {"Apple", "Boy", "Cat", "Dog", "Fish", "Grape", "Insect", "July", "Kiwi", "Lemon"};
     }
 
     // return the vector of possible vector
@@ -285,16 +285,64 @@ vector<string> storeTotalGuessCode(vector<string> storeCode){
     return myVector;
 }
 
+// display all guess code and hints
+void displayTable(vector<string> allGuessCode, int currentRound, int column){
+    // when game round is 0
+    stringstream sBox;
+    // 2 space for each
+    string boxUpper = "\n\n .";
+    string boxTop = "\n |";
+    string boxMid = "\n |";
+    string boxBot = "\n |";
+    string boxLower = "\n '";
+    // 6 space for each box
+    for (int i = 0; i < column; ++i) {
+        boxUpper += "~~~~~~";
+        boxTop += " .---.";
+        boxMid += " |   |";
+        boxBot += " '---'";
+        boxLower += "~~~~~~";
+    }
+    // 16 spaces for each
+    boxUpper += "~~~~~~~~~~~~~~~.";
+    boxTop += "               |";
+    boxMid += "  Hidden Code  |";
+    boxBot += "               |";
+    boxLower += "~~~~~~~~~~~~~~~'";
+    // Print the title of the table
+    sBox << boxUpper << boxTop << boxMid << boxBot << boxLower;
+    cout << sBox.str();
 
-void displayTable(){
+    // when game round larger than 0
+    if(currentRound > 0){
+        // loop for each layer
+        for (int j = 0; j < currentRound+1; ++j) {
+            stringstream sLayer;
+            // 2 space for each
+            string layerTop = "\n |";
+            string layerMid = "\n |";
+            string layerBot = "\n |";
+            // 6 space for each box
+            for (int i = 0; i < column; ++i) {
+                boxTop += " .---.";
+                boxMid = boxMid + " | " + allGuessCode[i+column*currentRound][0] + " |";
+                boxBot += " '---'";
+            }
+            // 16 spaces for each
+            layerTop += "               |";
+            layerMid += "  Hidden Code  |";
+            layerBot += "               |";
+            // Print one layer of the table
+            sLayer << layerTop << layerMid << layerBot;
+            cout << sLayer.str();
+        }
+        // lowest bound of the table
+        cout << "'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'";
+    }
 
+    // finish printing
+    cout << endl;
 }
-
-void feedBack(){
-
-}
-
-
 
 // function to check one game is over
 bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess) {
@@ -319,4 +367,6 @@ bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, v
     }
 }
 
+void feedBack(){
 
+}
