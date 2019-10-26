@@ -15,9 +15,9 @@ Purpose: Application file, to hold the main() function and controls the overall
 
 // main function
 int main(){
-    // display Main page, break the loop if select [N], [C] or [E]
+    // display Main page, break the loop if select [N] or [E]
     displayMainPage();
-    // user select [N] or [C]
+    // user select [N]
     multiGameLoop();
     // user select [E], pause and wait for exit
     system("pause");
@@ -96,9 +96,8 @@ void displayMainPage() {
         string userInput = "";
         userInput = askForString("\n Enter your option: ");
 
-        // keep asking string input until enter [N], [C], [H], [E] in Main page
-        while (userInput != "n" || userInput != "N" || userInput != "c" || userInput != "C" ||
-               userInput != "h" || userInput != "H" || userInput != "e" || userInput != "E") {
+        // keep asking string input until enter [N], [H], [E] in Main page
+        while (userInput != "n" || userInput != "N" || userInput != "h" || userInput != "H" || userInput != "e" || userInput != "E") {
             cout << "\n\n Please enter [N], [C], [H] or [E] only.\n";
             userInput = askForString("\n Enter your option: ");
         }
@@ -113,62 +112,28 @@ void displayMainPage() {
             system("pause");
         }
 
-        // break the while loop when [C], [N], [E] selected.
+        // break the while loop when [N], [E] selected.
         else {
             *isMainPageOver = true;
         }
     }
 }
 
-/************************************
-// clear the screen to start the game
-system("cls");
-
-// user select [N] New game.
-if (currentOption == "n" || currentOption == "N"){
-// display Set Up page.
-readFile("masterMindSetUpPage.txt");
-// pause the screen to allow player read the information
-system("pause");
-}
-// user select [C] Continue the saved game.
-else if (currentOption == "c" || currentOption == "C") {
-
-}
-**********************/
-
-
-
-// loop for each round of one game
-void oneGameLoop() {
-    *isOneGameOver = false;
-    // set game environment
-    setGame();
-    // generate secrete code
-    srand(unsigned(time(NULL)));
-    *possibleElementSet = generatePossibleElementSet(player.getSelectElementType(), code.getNumberPossibleElement());
-    *secretCode = generateSecretCode(*possibleElementSet, code.getCodeColumn());
-    *totalGameRound = code.getCodeRow();
-    *currentGameRound = 0;
-
-    // loop for multi rounds of one game
-    while(!isOneGameOver) {
-        // clear the screen and display title
-        system("cls");
-        displayTitle();
-        // display the previous result
-        displayTable();
-        // ask for guess code
-        *guessCode = askForGuessCode(*possibleElementSet);
-        // check is game over
-        *currentGameRound ++;
-        *isOneGameOver = checkOneGameOver();
-        feedBack();
+// loop for each game of multi game
+void multiGameLoop(){
+    setFirstGame();
+    *isMultiGameOver = false;
+    // loop for multi games
+    while(!*isMultiGameOver){
+        // start one game
+        oneGameLoop();
+        // check is the multi game loop end
+        *isMultiGameOver = checkMultiGameOver();
     }
 }
 
-// set the game environment
-void setGame() {
+// set the first game environment
+void setFirstGame() {
     // construct Player class
     player = Player(
             askForString("\n Please enter your name: "),
@@ -189,9 +154,72 @@ void setGame() {
     );
 }
 
+// function to check multi game is over
+bool checkMultiGameOver() {
+    // ask player want to start next game
+    string playerInput;
+    playerInput = askForString(" \n Do you want to start next game? (y/n): ");
+
+    // break the loop until player enter [Y] or [N]
+    while(playerInput != "y" || playerInput != "Y" || playerInput != "n" || playerInput != "N") {
+        string playerInput = "";
+        cout << "\n\n Please enter [Y] or [N] only.\n";
+        playerInput = askForString(" \n Do you want to start next game? (y/n): ");
+    }
+
+    // return false if player want to continue next game
+    if (playerInput == "y" || playerInput == "Y") {
+        return false;
+    }
+
+        // return true if player don't want to continue next game
+    else {
+        return true;
+    }
+}
+
+// loop for each round of one game
+void oneGameLoop() {
+    *isOneGameOver = false;
+    // seed random
+    srand(unsigned(time(NULL)));
+
+    // generate the possible element set
+    *possibleElementSet = generatePossibleElementSet(player.getSelectElementType(), code.getNumberPossibleElement());
+
+    // generate the secret code
+    *secretCode = generateSecretCode(*possibleElementSet, code.getCodeColumn());
+
+    // initiate total guess code vector
+    totalGuessCode->clear();
+
+    // determine the current and total game rounds
+    *totalGameRound = code.getCodeRow();
+    *currentGameRound = 0;
+
+    // loop for multi rounds of one game
+    while(!isOneGameOver) {
+        // clear the screen and display title
+        system("cls");
+        displayTitle();
+
+        // display the previous result
+        displayTable();
+
+        // ask for guess code
+        *guessCode = askForGuessCode(*possibleElementSet);
+        *totalGuessCode = storeTotalGuessCode(*secretCode);
+
+        // check is game over
+        *currentGameRound ++;
+        *isOneGameOver = checkOneGameOver(*currentGameRound, *totalGameRound, *secretCode, *guessCode);
+        feedBack();
+    }
+}
+
+// generate the possible element set base on the selected gate and element type
 vector<string> generatePossibleElementSet(int type, int keepElement) {
     vector<string> myVector;
-    myVector.clear();
 
     // Number
     if (type == 1){
@@ -218,9 +246,9 @@ vector<string> generatePossibleElementSet(int type, int keepElement) {
     return myVector;
 }
 
+// generate the secrete code base on the element set and code column
 vector<string> generateSecretCode(vector<string> elementSet, int codeColumn){
     vector<string> myVector;
-    myVector.clear();
     for (int i = 0; i < codeColumn; ++i) {
         int randomIndex = rand() % elementSet.size();;
         myVector.push_back(elementSet[randomIndex]);
@@ -228,6 +256,7 @@ vector<string> generateSecretCode(vector<string> elementSet, int codeColumn){
     return myVector;
 }
 
+// print the possible element set and ask player for guess code
 vector<string> askForGuessCode(vector<string> possibleElement){
     // print the possible element
     cout << "\n The code elements: ";
@@ -243,11 +272,17 @@ vector<string> askForGuessCode(vector<string> possibleElement){
     while (cin >> input) {
         myVector.push_back(input);
     }
+
     return myVector;
 }
 
-vector<string> storeTotalGuessCode(){
-
+// store one round guess code to the total rounds of guess code
+vector<string> storeTotalGuessCode(vector<string> storeCode){
+    vector<string> myVector;
+    for (int i = 0; i < storeCode.size(); ++i) {
+        myVector.push_back(storeCode[i]);
+    }
+    return myVector;
 }
 
 
@@ -262,19 +297,19 @@ void feedBack(){
 
 
 // function to check one game is over
-bool checkOneGameOver() {
+bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess) {
     // finish all game rounds
-    if (*currentGameRound == *totalGameRound) {
+    if (currentRound == totalRound) {
         return true;
     }
 
     // the guess code match the secret code
-    else if (*guessCode == *secretCode){
+    else if (secret == guess){
         return true;
     }
 
     // player enter [E] when guessing the code, end the game
-    else if (guessCode->at(0) == "e" || guessCode->at(0) == "E") {
+    else if (guess.at(0) == "e" || guess.at(0) == "E") {
         return true;
     }
 
@@ -284,40 +319,4 @@ bool checkOneGameOver() {
     }
 }
 
-// loop for each game of multi game
-void multiGameLoop(){
-    *isMultiGameOver = false;
-
-    // loop for multi games
-    while(!*isMultiGameOver){
-        // start one game
-        oneGameLoop();
-        // check is the multi game loop end
-        *isMultiGameOver = checkMultiGameOver();
-    }
-}
-
-// function to check multi game is over
-bool checkMultiGameOver() {
-    // ask player want to start next game
-    string playerInput;
-    playerInput = askForString(" \n Do you want to start next game? (y/n): ");
-
-    // break the loop until player enter [Y] or [N]
-    while(playerInput != "y" || playerInput != "Y" || playerInput != "n" || playerInput != "N") {
-        string playerInput = "";
-        cout << "\n\n Please enter [Y] or [N] only.\n";
-        playerInput = askForString(" \n Do you want to start next game? (y/n): ");
-    }
-
-    // return false if player want to continue next game
-    if (playerInput == "y" || playerInput == "Y") {
-        return false;
-    }
-
-    // return true if player don't want to continue next game
-    else {
-        return true;
-    }
-}
 

@@ -13,8 +13,6 @@ you will be lock in the room forever......
 
  [N] New game.
 
- [C] Continue the saved game.
-
  [H] for Help.
 
  [E] End the game.

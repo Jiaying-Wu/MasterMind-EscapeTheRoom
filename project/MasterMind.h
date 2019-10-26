@@ -62,7 +62,7 @@ void displayMainPage();
 
 void oneGameLoop();
 
-void setGame();
+void setFirstGame();
 
 vector<string> generatePossibleElementSet(int type, int keepElement);
 
@@ -70,11 +70,11 @@ vector<string> generateSecretCode(vector<string> elementSet, int codeColumn);
 
 vector<string> askForGuessCode(vector<string> possibleElement);
 
-vector<string> storeTotalGuessCode();
+vector<string> storeTotalGuessCode(vector<string> storeCode);
 
 void displayTable();
 
-bool checkOneGameOver();
+bool checkOneGameOver(int currentRound, int totalRound, vector<string> secret, vector<string> guess);
 
 void feedBack();
 
