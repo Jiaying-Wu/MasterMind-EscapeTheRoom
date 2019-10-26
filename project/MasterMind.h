@@ -16,7 +16,11 @@ Purpose: masterMind header file, declare the variable and function for the
 // header
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <ctime>
+#include <random>
+#include <iterator>
+#include <algorithm>
 #include "Player.h"
 #include "Code.h"
 
@@ -40,6 +44,8 @@ vector<string> *secretCode;
 
 vector<string> *guessCode;
 
+vector<string> *totalGuessCode;
+
 bool *isMultiGameOver;
 
 
@@ -62,11 +68,15 @@ vector<string> generatePossibleElementSet(int type, int keepElement);
 
 vector<string> generateSecretCode(vector<string> elementSet, int codeColumn);
 
-vector<string> askForGuessCode();
+vector<string> askForGuessCode(vector<string> possibleElement);
+
+vector<string> storeTotalGuessCode();
 
 void displayTable();
 
 bool checkOneGameOver();
+
+void feedBack();
 
 void multiGameLoop();
 

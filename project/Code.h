@@ -32,9 +32,6 @@ private:
     int *codeRow;
     int *numberPossibleElement;
 
-    // array for possible
-    string *possibleNumber[];
-
 public:
     // Constructors
     Code();
@@ -53,8 +50,6 @@ public:
     int getCodeRow();
 
     int getNumberPossibleElement();
-
-    vector<string> getPossibleElement();
 
     // Mutator Functions
     void setCodeColumn(int newCodeColumn);

@@ -11,7 +11,6 @@ Purpose: Application file, to hold the main() function and controls the overall
 ******************************************************************************/
 
 // header
-#include <valarray>
 #include "MasterMind.h"
 
 // main function
@@ -149,18 +148,22 @@ void oneGameLoop() {
     srand(unsigned(time(NULL)));
     *possibleElementSet = generatePossibleElementSet(player.getSelectElementType(), code.getNumberPossibleElement());
     *secretCode = generateSecretCode(*possibleElementSet, code.getCodeColumn());
+    *totalGameRound = code.getCodeRow();
+    *currentGameRound = 0;
 
     // loop for multi rounds of one game
     while(!isOneGameOver) {
         // clear the screen and display title
         system("cls");
         displayTitle();
-        // ask for guess code
-        *guessCode = askForGuessCode();
-        // display the output table of the code
+        // display the previous result
         displayTable();
+        // ask for guess code
+        *guessCode = askForGuessCode(*possibleElementSet);
         // check is game over
+        *currentGameRound ++;
         *isOneGameOver = checkOneGameOver();
+        feedBack();
     }
 }
 
@@ -184,8 +187,6 @@ void setGame() {
             // numberPossibleElement = 4 + 2 * selectGate
             player.getSelectGate() * 2 + 4
     );
-
-    // define the
 }
 
 vector<string> generatePossibleElementSet(int type, int keepElement) {
@@ -220,23 +221,50 @@ vector<string> generatePossibleElementSet(int type, int keepElement) {
 vector<string> generateSecretCode(vector<string> elementSet, int codeColumn){
     vector<string> myVector;
     myVector.clear();
-    myVector = elementSet;
+    for (int i = 0; i < codeColumn; ++i) {
+        int randomIndex = rand() % elementSet.size();;
+        myVector.push_back(elementSet[randomIndex]);
+    }
+    return myVector;
+}
+
+vector<string> askForGuessCode(vector<string> possibleElement){
+    // print the possible element
+    cout << "\n The code elements: ";
+    for (int i = 0; i < possibleElement.size(); ++i) {
+        cout << possibleElement[i] << " ";
+    }
+    cout << endl;
+
+    // get input and store as vector
+    string input;
+    vector<string> myVector;
+    cout << "\n\n Enter the game option or code separated by space: ";
+    while (cin >> input) {
+        myVector.push_back(input);
+    }
+    return myVector;
+}
+
+vector<string> storeTotalGuessCode(){
 
 }
 
-vector<string> askForGuessCode(){
-
-}
 
 void displayTable(){
 
 }
 
+void feedBack(){
+
+}
+
+
 
 // function to check one game is over
 bool checkOneGameOver() {
     // finish all game rounds
-    if (*currentGameRound = *totalGameRound) {
+    if (*currentGameRound == *totalGameRound) {
         return true;
     }
 
@@ -246,7 +274,7 @@ bool checkOneGameOver() {
     }
 
     // player enter [E] when guessing the code, end the game
-    else if (*guessCode == "e" || *guessCode == "E") {
+    else if (guessCode->at(0) == "e" || guessCode->at(0) == "E") {
         return true;
     }
 
@@ -272,11 +300,12 @@ void multiGameLoop(){
 // function to check multi game is over
 bool checkMultiGameOver() {
     // ask player want to start next game
-    string playerInput = "";
+    string playerInput;
     playerInput = askForString(" \n Do you want to start next game? (y/n): ");
 
     // break the loop until player enter [Y] or [N]
     while(playerInput != "y" || playerInput != "Y" || playerInput != "n" || playerInput != "N") {
+        string playerInput = "";
         cout << "\n\n Please enter [Y] or [N] only.\n";
         playerInput = askForString(" \n Do you want to start next game? (y/n): ");
     }
